@@ -29,7 +29,6 @@ public class BookTile {
 
     public BookTile(ResultSet rs){
         try{
-            rs.next();
             this.setBookId(rs.getInt("booksid"));
             this.setTitle(rs.getString("title"));
             this.setIsbn(rs.getString("isbn"));
