@@ -24,11 +24,13 @@ public class BookTile {
     private String isbn;
     private int price;
     private String image;
+    private int bookId;
 
 
     public BookTile(ResultSet rs){
         try{
             rs.next();
+            this.setBookId(rs.getInt("booksid"));
             this.setTitle(rs.getString("title"));
             this.setIsbn(rs.getString("isbn"));
             this.setImage(rs.getString("imageurl"));
