@@ -1,6 +1,11 @@
 package com.group1.mstory.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.group1.mstory.objects.Book;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +24,25 @@ public class BookTile {
     private String isbn;
     private int price;
     private String image;
+
+
+    public BookTile(ResultSet rs){
+        try{
+            this.setTitle(rs.getString("title"));
+            this.setIsbn(rs.getString("isbn"));
+            this.setImage(rs.getString("imageurl"));
+            this.setPublisherId(rs.getInt("publisherid"));
+            this.setAuthors( new ArrayList<String>(Arrays.asList(rs.getString("authors").split(","))));
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+    }
+
+    public BookTile(Book book){
+        this.setTitle(book.getTitle());
+        this.setIsbn(book.getIsbn());
+        this.setImage(book.getImageUrl());
+        this.setPublisherId(book.getPublisherId());        
+    }
 }

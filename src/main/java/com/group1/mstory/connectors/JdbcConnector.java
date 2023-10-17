@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import java.util.ArrayList;
+
 public class JdbcConnector {
 
     private String connectionUrl = "";
@@ -34,6 +36,10 @@ public class JdbcConnector {
             E.printStackTrace();
             return false;
         }
+    }
+
+    public PreparedStatement prepareStatement(String query) throws SQLException{
+        return connection.prepareStatement(query);
     }
 
     public ResultSet prepareAndExecuteStatement(String query) throws SQLException{
