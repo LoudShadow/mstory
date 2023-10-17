@@ -7,8 +7,8 @@ import com.group1.mstory.connectors.JdbcConnector;
 
 public class BookController {
 
-    public ArrayList<BookTile> getAllBookTiles(){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://localhost:3310/MStorey","root","password");
+    public static ArrayList<BookTile> getAllBookTiles(){
+        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
         
         String sql = "SELECT * FROM Books";
         try{
