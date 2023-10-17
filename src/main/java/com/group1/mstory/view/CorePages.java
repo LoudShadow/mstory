@@ -12,6 +12,7 @@ import com.group1.mstory.controller.BookController;
 import com.group1.mstory.objects.Book;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.IllustratorController;
 
 import com.group1.mstory.model.BookTile;
 
@@ -19,13 +20,6 @@ import com.group1.mstory.model.BookTile;
 public class CorePages {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String index(Model model){
-        // ArrayList<String> authors = new ArrayList<String>();
-        // authors.add("J.R.R. Tolkien");
-        // ArrayList<BookTile> books = new ArrayList<BookTile>();
-        // books.add(new BookTile("The Hobbit", authors, "A book about a hobbit", 1, "1234567890", 10, "https://upload.wikimedia.org/wikipedia/en/4/4a/TheHobbit_FirstEdition.jpg"));
-        // books.add(new BookTile("The Hobbit", authors, "A book about a hobbit", 1, "1234567890", 10, "https://upload.wikimedia.org/wikipedia/en/4/4a/TheHobbit_FirstEdition.jpg"));
-
-
         ArrayList<BookTile> books = BookController.getAllBookTiles();
         model.addAttribute("books", books);
 
@@ -33,12 +27,10 @@ public class CorePages {
     }
 
     @RequestMapping(value = "/bookpage",method = RequestMethod.GET)
-    public String page(@RequestParam("id") String idParam){
+    public String page(Model model,@RequestParam("id") String idParam){
         int id = Integer.parseInt(idParam);
-
         Book b = BookController.getBookByBookId(id);
         b.display();
-
         return "bookpage.html";
     }
 
@@ -56,6 +48,12 @@ public class CorePages {
     @RequestMapping(value = "/addPublisher", method = RequestMethod.GET)
     public String addPublisher( @RequestParam("name") String name){
         PublisherController.addPublisher(name);
-        return "addAuthor.html";
+        return "adding/index.html";
+    }
+
+    @RequestMapping(value = "/addIllustrator", method = RequestMethod.GET)
+    public String addIllustrator( @RequestParam("name") String name){
+        IllustratorController.addIllustrator(name);
+        return "adding/index.html";
     }
 }

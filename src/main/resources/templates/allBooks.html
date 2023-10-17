@@ -39,13 +39,13 @@
 
                 <a th:each="book : ${books}" class="bookTileLink" href="/bookpage">
                     <div class="bookTile">
-                        <h2 class="bookTitle" th:text="${book.title}">Harry Potter and the philosophers stone</h2>
+                        <h2 class="bookTitle" th:text="${book.title}"></h2>
                         <img class="bookImg" th:attr="src=${book.image}" alt="book 1">
                         <ul class="bookAuthour">
                             <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
                         </ul>
                         <p class="bookPrice">$<span th:text="${book.price}"></span></p>
-                        <p class="bookDescription" th:text="${book.description}">Harry potter is a cool book you should read oanhsnueohisnueohisnueohiuehisneohineohineohknueohknueohinheoieouieoui</p>
+                        <p class="bookDescription" th:text="${book.description}"></p>
                         <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
                     </div>
                 </a>
