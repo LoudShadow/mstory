@@ -37,7 +37,7 @@ public class CorePages {
         int id = Integer.parseInt(idParam);
 
         Book b = BookController.getBookByBookId(id);
-        System.out.println(b.getTitle());
+        b.display();
 
         return "bookpage.html";
     }
