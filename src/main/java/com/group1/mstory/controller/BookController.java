@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Component;
 import com.group1.mstory.model.BookTile;
+import com.group1.mstory.objects.Book;
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import com.group1.mstory.connectors.JdbcConnector;
 
@@ -39,12 +40,11 @@ public class BookController {
             ex.printStackTrace();
         }
 
-
         return bookTileList;
     }
 
 
-    private static BookTile getBook(String sql, int id){
+    private static Book getBook(String sql, int id){
         JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
 
         try {
@@ -52,8 +52,12 @@ public class BookController {
             ps.setInt(1, id);
             System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
+            System.out.println(rs.toString());
 
-            return new BookTile(rs);
+
+
+
+            return new Book(rs);
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -61,7 +65,7 @@ public class BookController {
         return null;
     }
 
-    public static BookTile getBookByProductId(int id){
+    public static Book getBookByProductId(int id){
         String sql = "SELECT Books.* FROM Books" + 
         "INNER JOIN Book_Product ON Book_Product.BookId = Books.BooksId " +
         "INNER JOIN Products ON Products.BookId = Book_Product.ProductId" + 
@@ -70,7 +74,7 @@ public class BookController {
         return getBook(sql, id);
     }
 
-    public static BookTile getBookByBookId(int id){
+    public static Book getBookByBookId(int id){
         String sql = "SELECT * FROM Books WHERE BooksId = ?;";
         return getBook(sql, id);
     }

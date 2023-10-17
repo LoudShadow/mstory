@@ -28,6 +28,7 @@ public class BookTile {
 
     public BookTile(ResultSet rs){
         try{
+            rs.next();
             this.setTitle(rs.getString("title"));
             this.setIsbn(rs.getString("isbn"));
             this.setImage(rs.getString("imageurl"));
@@ -43,6 +44,6 @@ public class BookTile {
         this.setTitle(book.getTitle());
         this.setIsbn(book.getIsbn());
         this.setImage(book.getImageUrl());
-        this.setPublisherId(book.getPublisherId());        
+        this.setPublisherId(book.getPublisherId());     
     }
 }
