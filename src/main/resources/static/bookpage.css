@@ -5,7 +5,7 @@ html body{
 }
 
 .bookPage{
-    padding: 20vw;
+    margin: 20vw;
     display: grid;
 
 }
