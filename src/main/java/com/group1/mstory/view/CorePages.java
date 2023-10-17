@@ -35,4 +35,9 @@ public class CorePages {
         bc.getAllBookTiles();
         return "bookpage.html";
     }
+
+    @RequestMapping(value = "/newbook", method = RequestMethod.GET)
+    public String newBook(){
+        return "newbook.html";
+    }
 }
