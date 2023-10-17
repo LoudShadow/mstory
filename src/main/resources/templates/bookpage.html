@@ -36,12 +36,12 @@
 
                 
                 <h2 class="bookTitle" th:text="${book.title}"></h2>
-                <img class="bookImg" th:attr="src=${book.image}" alt="book 1">
+                <img class="bookImg" th:attr="src=${book.imageUrl}" alt="book 1">
                 <ul class="bookAuthour">
                     <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
                 </ul>
-                <p class="bookPrice">$<span th:text="${book.price}"></span></p>
-                <p class="bookDescription" th:text="${book.description}"></p>
+                <!-- <p class="bookPrice">$<span th:text="${book.price}"></span></p>
+                <p class="bookDescription" th:text="${book.description}"></p> -->
                 <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
                 <div class="buy">
                     <p class="stockText instock">In Stock</p>

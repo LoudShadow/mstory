@@ -23,7 +23,7 @@ public class BookTile {
     private int PublisherId;
     private String isbn;
     private int price;
-    private String image;
+    private String imageUrl;
 
 
     public BookTile(ResultSet rs){
@@ -31,7 +31,7 @@ public class BookTile {
             rs.next();
             this.setTitle(rs.getString("title"));
             this.setIsbn(rs.getString("isbn"));
-            this.setImage(rs.getString("imageurl"));
+            this.setImageUrl(rs.getString("imageurl"));
             this.setPublisherId(rs.getInt("publisherid"));
             this.setAuthors( new ArrayList<String>(Arrays.asList(rs.getString("authors").split(","))));
         } catch (SQLException ex){

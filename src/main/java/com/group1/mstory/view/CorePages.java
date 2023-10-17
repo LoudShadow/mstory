@@ -30,6 +30,7 @@ public class CorePages {
     public String page(Model model,@RequestParam("id") String idParam){
         int id = Integer.parseInt(idParam);
         Book b = BookController.getBookByBookId(id);
+        model.addAttribute("book", b);
         b.display();
         return "bookpage.html";
     }
