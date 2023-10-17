@@ -46,13 +46,13 @@ public class CorePages {
         return "adding/index.html";
     }
 
-    @RequestMapping(value = "/addPublisher", method = RequestMethod.GET)
+    @RequestMapping(value = "/addPublisher", method = RequestMethod.POST)
     public String addPublisher( @RequestParam("name") String name){
         PublisherController.addPublisher(name);
         return "adding/index.html";
     }
 
-    @RequestMapping(value = "/addIllustrator", method = RequestMethod.GET)
+    @RequestMapping(value = "/addIllustrator", method = RequestMethod.POST)
     public String addIllustrator( @RequestParam("name") String name){
         IllustratorController.addIllustrator(name);
         return "adding/index.html";
