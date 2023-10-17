@@ -35,12 +35,14 @@
             <div class="bookPage">
 
                 
-                <h2 class="bookTitle">Harry Potter and the philosophers stone</h2>
-                <img class="bookImg" src="https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg" alt="book 1">
-                <p class="bookAuthour">JK Rowling</p>
-                <p class="bookPrice">$100.43</p>
-                <p class="bookDescription">Harry potter is a cool book you should read oanhsnueohisnueohisnueohiuehisneohineohineohknueohknueohinheoieouieoui Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque, voluptas expedita! Itaque esse nostrum vero tempore accusamus omnis ipsa reprehenderit, aspernatur suscipit nemo alias perferendis saepe officiis. Repudiandae, molestiae. Repellendus, facilis sed alias, quibusdam a illo exercitationem necessitatibus eum pariatur illum consectetur temporibus distinctio qui quas sapiente ipsum sunt blanditiis corrupti accusantium? Eaque facere ducimus magni inventore tempora. Dolorum, molestias debitis et, iste aliquid beatae maxime itaque tempore molestiae suscipit, unde consectetur ipsa iure officiis corrupti doloremque! Hic eveniet, neque expedita maxime voluptates eligendi perspiciatis doloremque provident iusto sed distinctio id ullam. Deserunt illum, autem impedit quia est ducimus incidunt et? Sint eos corporis voluptatibus nostrum modi, debitis incidunt omnis perferendis voluptas? Sit eum voluptatibus illo ex, et maiores culpa unde eos rem esse architecto quas sed fugit quos! Distinctio quo nobis animi fuga ea similique dolores porro eum quasi, possimus est tenetur facilis, minima earum illo eius! Et harum ea libero quia consequuntur molestias soluta aliquid nam labore nobis laboriosam id provident, quasi praesentium a eligendi incidunt accusantium ipsam voluptatem dolore dignissimos. Quidem consectetur a, non perspiciatis, iusto totam ea dignissimos quia nisi quasi mollitia repudiandae officia voluptates repellat praesentium, corrupti sed minus fugiat cumque commodi molestias recusandae. Sint.</p>
-                <span class="bookIsbn">isbn:123456</span>
+                <h2 class="bookTitle" th:text="${book.title}"></h2>
+                <img class="bookImg" th:attr="src=${book.image}" alt="book 1">
+                <ul class="bookAuthour">
+                    <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
+                </ul>
+                <p class="bookPrice">$<span th:text="${book.price}"></span></p>
+                <p class="bookDescription" th:text="${book.description}"></p>
+                <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
                 <div class="buy">
                     <p class="stockText instock">In Stock</p>
                     <button class="buyButton instock">Buy</button>
