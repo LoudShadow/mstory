@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.group1.mstory.controller.BookController;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.IllustratorController;
 
 import com.group1.mstory.model.BookTile;
 
@@ -50,6 +51,12 @@ public class CorePages {
     @RequestMapping(value = "/addPublisher", method = RequestMethod.GET)
     public String addPublisher( @RequestParam("name") String name){
         PublisherController.addPublisher(name);
+        return "addAuthor.html";
+    }
+
+    @RequestMapping(value = "/addIllustrator", method = RequestMethod.GET)
+    public String addIllustrator( @RequestParam("name") String name){
+        IllustratorController.addIllustrator(name);
         return "addAuthor.html";
     }
 }
