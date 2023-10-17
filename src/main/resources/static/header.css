@@ -1,0 +1,44 @@
+header{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: lightcoral;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 0 2vw;
+}
+header h1{
+    flex-grow: 1;
+}
+
+.search{
+    justify-self: flex-end;
+}
+.sidebar{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    background-color: green;
+}
+
+.searchBar{
+    background: none;
+    border: none;
+    border-bottom: black 1px solid;
+
+    font-size: x-large;
+
+    color: black;
+}
+.searchBar:focus{
+    outline: none;
+}
+.searchButton{
+    background: none;
+    border: none;
+    width: 50px;
+    aspect-ratio: 1/1;
+
+    color: black;
+}

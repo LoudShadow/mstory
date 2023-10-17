@@ -1,0 +1,90 @@
+html body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.content{
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 20vw 80vw;
+    grid-template-rows: 10vh 90vh;
+}
+
+.main{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    background-color: orange;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    align-content: flex-start;
+    align-items: stretch;
+}
+
+.bookTile{
+    background-color: #fff;
+    display: grid;
+
+    border: black 1px solid;
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.bookTitle{
+    grid-column: 1/3;
+    grid-row: 1/2;
+    font-size: 1.5em;
+    width: 15em;
+}
+
+.bookImg{
+    grid-column: 2/3;
+    grid-row: 2/5;
+    color: #fff;
+    font-size: 1.5em;
+    padding: 0 1vw;
+    margin: 0;
+
+    height: 200px;
+
+}
+.bookAuthor{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+.bookDescription{
+    grid-column: 1/2;
+    grid-row: 3/4;
+    align-self: flex-start;
+    width: 10em;
+    word-wrap: break-word;
+}
+.bookPrice{
+    grid-column: 1/2;
+    grid-row: 4/5;
+
+    align-self: flex-end;
+
+    font-size: larger;
+    font-weight: bold;
+}   
+.bookIsbn{
+    grid-column: 2/3;
+    grid-row: 5/6;
+    justify-self: flex-end;
+}
+
+
+.bookTileLink{
+    text-decoration: none;
+    color: black;
+}
+
