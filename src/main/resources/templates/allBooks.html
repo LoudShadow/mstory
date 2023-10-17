@@ -37,7 +37,7 @@
             
             <div class="main">
 
-                <a th:each="book : ${books}" class="bookTileLink" th:href="@{'/bookpage(id=${book.bookId})}">
+                <a th:each="book : ${books}" class="bookTileLink" th:href="@{bookpage(id=${book.bookId})}">
                     <div class="bookTile">
                         <h2 class="bookTitle" th:text="${book.title}"></h2>
                         <img class="bookImg" th:attr="src=${book.imageUrl}" alt="book 1">
