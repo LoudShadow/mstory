@@ -1,5 +1,6 @@
 package com.group1.mstory.controller;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,13 +11,15 @@ import com.group1.mstory.model.BookTile;
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import com.group1.mstory.connectors.JdbcConnector;
 
+
 @Component
-public class AuthorController {
+public class PublisherController {
     
 
-    public static boolean addAuthor(String name) {
+    public static boolean addPublisher(String name) {
         JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
-        String sql = "INSERT INTO Authors(name) VALUES (?);";
+        String sql = "INSERT INTO Publishers(name) VALUES (?);";
+
         try{
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setString(1,name);
@@ -28,5 +31,8 @@ public class AuthorController {
             ex.printStackTrace();
             return false;
         }
+
     }
 }
+
+
