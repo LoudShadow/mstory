@@ -53,10 +53,6 @@ public class BookController {
             System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             System.out.println(rs.toString());
-
-
-
-
             return new Book(rs);
         } catch (Exception ex){
             ex.printStackTrace();

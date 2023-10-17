@@ -3,6 +3,9 @@ package com.group1.mstory.objects;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.PublisherController;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
