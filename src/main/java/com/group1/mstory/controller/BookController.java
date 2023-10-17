@@ -13,13 +13,13 @@ import com.group1.mstory.connectors.JdbcConnector;
 public class BookController {
 
     public static ArrayList<BookTile> getAllBookTiles(){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://localhost:3310/MStorey","root","password");
+        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
         String sql = "SELECT Books.*, GROUP_CONCAT(Authors.Name) AS Authors FROM Books \r\n" + //
                 "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId \r\n" + //
                 "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId\r\n" + //
                 "GROUP BY Books.BooksId;";
 
-        ArrayList<BookTile> bookTileList = new ArrayList();
+        ArrayList<BookTile> bookTileList = new ArrayList<BookTile>();
 
         try{
             ResultSet rs = jdbcConnector.prepareAndExecuteStatement(sql);
@@ -45,12 +45,6 @@ public class BookController {
 
 
         return bookTileList;
-    }   
-
-
-    private void getAuthorsForBook(){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://localhost:3310/MStorey","root","password");
-        String sql = "SELECT * FROM Books";
     }
 
     
