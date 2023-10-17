@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group1.mstory.controller.BookController;
+import com.group1.mstory.objects.Book;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.controller.AuthorController;
 import com.group1.mstory.controller.IllustratorController;
@@ -28,12 +29,8 @@ public class CorePages {
     @RequestMapping(value = "/bookpage",method = RequestMethod.GET)
     public String page(Model model,@RequestParam("id") String idParam){
         int id = Integer.parseInt(idParam);
-
-
-        BookTile bt = BookController.getBookByBookId(id);
-        model.addAttribute("book", bt);
-        System.out.println(bt.getTitle());
-
+        Book b = BookController.getBookByBookId(id);
+        b.display();
         return "bookpage.html";
     }
 

@@ -33,6 +33,25 @@ public class PublisherController {
         }
 
     }
+
+
+    public static String getPublisherByBookId(int id){
+        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+        String sql = "SELECT * FROM Publishers WHERE PublisherId = ?;";
+
+
+        try {
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1, id);
+            System.out.println(ps.toString());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getString("name");
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
 
 

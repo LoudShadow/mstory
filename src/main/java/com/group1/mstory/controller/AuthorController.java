@@ -29,4 +29,30 @@ public class AuthorController {
             return false;
         }
     }
+
+    public static ArrayList<String> getAuthorsByBookId(int id){
+        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+        String sql = "SELECT Authors.Name AS Authors FROM Books \r\n" + //
+                "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId \r\n" + //
+                "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId\r\n" + //
+                "where Books.BooksId =?;";
+
+        try{
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1,id);
+            System.out.println(ps.toString());
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<String> returnedAuthors = new ArrayList<String>();
+
+            while (rs.next()){
+                returnedAuthors.add(rs.getString("authors"));
+            }
+            return returnedAuthors;
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
