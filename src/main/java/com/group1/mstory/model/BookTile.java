@@ -45,7 +45,7 @@ public class BookTile {
     public BookTile(Book book){
         this.setTitle(book.getTitle());
         this.setIsbn(book.getIsbn());
-        this.setImage(book.getImageUrl());
+        this.setImageUrl(book.getImageUrl());
         this.setPublisherId(book.getPublisherId());     
     }
 }
