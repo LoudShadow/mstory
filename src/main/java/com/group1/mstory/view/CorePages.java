@@ -46,13 +46,9 @@ public class CorePages {
         return "bookpage.html";
     }
 
-    @RequestMapping(value = "/newbook", method = RequestMethod.GET)
-    public String newBook(){
-        return "newbook.html";
-    }
-    @RequestMapping(value = "/addAuthor", method = RequestMethod.GET)
+    @RequestMapping(value = "/addAuthor", method = RequestMethod.POST)
     public String addAuthor( @RequestParam("name") String name){
         AuthorController.addAuthor(name);
-        return "addAuthor.html";
+        return "adding/index.html";
     }
 }
