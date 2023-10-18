@@ -16,6 +16,12 @@ public class BookController {
     @Autowired
     JdbcConnector jdbcConnector;
 
+    @Autowired
+    AuthorController ac;
+
+    @Autowired
+    PublisherController pc;
+
     public ArrayList<BookTile> getAllBookTiles(){
 
         String sql = "SELECT Books.*, GROUP_CONCAT(Authors.Name) AS Authors FROM Books \r\n" + //
@@ -49,8 +55,21 @@ public class BookController {
             ps.setInt(1, id);
             System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
+            rs.next();
             System.out.println(rs.toString());
-            return new Book(rs);
+
+            return new Book(
+                    rs.getInt("booksid"),
+                    rs.getInt("publisherid"),
+                    rs.getString("isbn"),
+                    rs.getString("title"),
+                    rs.getString("publishdate"),
+                    rs.getString("imageurl"),
+                    rs.getInt("pagecount"),
+                    rs.getString("binding"),
+                    (float) rs.getLong("weight"),
+                    pc.getPublisherByBookId(rs.getInt("publisherid")),
+                    ac.getAuthorsByBookId(rs.getInt("booksid")));
         } catch (Exception ex){
             ex.printStackTrace();
         }

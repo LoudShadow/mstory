@@ -19,13 +19,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
-    @Autowired
-    AuthorController ac;
-    @Autowired
-    BookController bc;
-    @Autowired
-    PublisherController pc;
-
     private int bookId;
     private int publisherId;
     private String isbn;
@@ -37,26 +30,6 @@ public class Book {
     private float weight;
     private String publisher;
     private ArrayList<String> authors;
-
-    public Book(ResultSet rs){
-        try{
-            rs.next();
-            this.bookId = rs.getInt("booksid");
-            this.publisherId = rs.getInt("publisherid");
-            this.isbn = rs.getString("isbn");
-            this.title = rs.getString("title");
-            this.publishDate = rs.getString("publishdate");
-            this.imageUrl = rs.getString("imageurl");
-            this.pageCount = rs.getInt("pagecount");
-            this.binding = rs.getString("binding");
-            this.weight = (float) rs.getLong("weight");
-            this.publisher = pc.getPublisherByBookId(rs.getInt("publisherid"));
-            this.authors = ac.getAuthorsByBookId(rs.getInt("booksid"));
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
 
     public void display(){
         System.out.println(bookId);
