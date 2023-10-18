@@ -66,14 +66,24 @@ public class AddPages {
         @RequestParam("description") String description,
         @RequestParam("publisher") String publisherId,
         @RequestParam("price") String price,
-        @RequestParam("isbn") String isbn){
+        @RequestParam("isbn") String isbn,
+        @RequestParam("publicationDate") String publicationDate,
+        @RequestParam("imageURL") String imageUrl,
+        @RequestParam("binding") String binding,
+        @RequestParam("pageCount") String pageCount,
+        @RequestParam("weight") String weight){
         bc.addBook(
             title,
             Arrays.asList(authorId.split("\\s*,\\s*")),
             description,
             Integer.parseInt(publisherId),
-            Integer.valueOf(price),
-            isbn
+            Integer.parseInt(price),
+            isbn,
+            publicationDate,
+            imageUrl,
+            binding,
+            Integer.parseInt(pageCount),
+            Double.parseDouble(weight)
         );
         return "adding/index.html";
     }

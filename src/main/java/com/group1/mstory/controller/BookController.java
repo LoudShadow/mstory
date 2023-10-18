@@ -101,18 +101,28 @@ public class BookController {
         String description,
         int publisherId,
         int price,
-        String isbn){
+        String isbn,
+        String publicationDate,
+        String imageUrl,
+        String binding,
+        int pageCount,
+        double weight){
 
         String sql;
 
         // SQL to add a new book to Books Table
-        sql = "INSERT INTO Books (publisherid, isbn, title, description) VALUES (?, ?, ?, ?);";
+        sql = "INSERT INTO Books (publisherid, isbn, title, publishdate, imageurl, pagecount, binding, weight, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, publisherId);
             ps.setString(2, isbn);
             ps.setString(3, title);
-            ps.setString(4, description);
+            ps.setString(4, publicationDate);
+            ps.setString(5, imageUrl);
+            ps.setInt(6, pageCount);
+            ps.setString(7, binding);
+            ps.setDouble(8, weight);
+            ps.setString(9, description);
             ps.executeUpdate();
         } catch (Exception ex){
             ex.printStackTrace();
