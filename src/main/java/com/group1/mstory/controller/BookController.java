@@ -3,21 +3,20 @@ package com.group1.mstory.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.group1.mstory.model.BookTile;
 import com.group1.mstory.objects.Book;
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import com.group1.mstory.connectors.JdbcConnector;
 
 
 @Component
 public class BookController {
+    @Autowired
+    JdbcConnector jdbcConnector;
 
-
-    public static ArrayList<BookTile> getAllBookTiles(){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+    public ArrayList<BookTile> getAllBookTiles(){
 
         String sql = "SELECT Books.*, GROUP_CONCAT(Authors.Name) AS Authors FROM Books \r\n" + //
                 "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId \r\n" + //
@@ -44,9 +43,7 @@ public class BookController {
     }
 
 
-    private static Book getBook(String sql, int id){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
-
+    private Book getBook(String sql, int id){
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
@@ -61,7 +58,7 @@ public class BookController {
         return null;
     }
 
-    public static Book getBookByProductId(int id){
+    public Book getBookByProductId(int id){
         String sql = "SELECT Books.* FROM Books" + 
         "INNER JOIN Book_Product ON Book_Product.BookId = Books.BooksId " +
         "INNER JOIN Products ON Products.BookId = Book_Product.ProductId" + 
@@ -70,7 +67,7 @@ public class BookController {
         return getBook(sql, id);
     }
 
-    public static Book getBookByBookId(int id){
+    public Book getBookByBookId(int id){
         String sql = "SELECT * FROM Books WHERE BooksId = ?;";
         return getBook(sql, id);
     }

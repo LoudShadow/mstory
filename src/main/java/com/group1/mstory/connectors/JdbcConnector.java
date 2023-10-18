@@ -5,25 +5,19 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
-import java.util.ArrayList;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JdbcConnector {
-
-    private String connectionUrl = "";
-    private String connectionPassword = "";
-    private String connectionUser = "";
+    private String connectionUrl = "jdbc:mysql://192.168.1.106:3310/MStorey";
+    private String connectionUser = "root";
+    private String connectionPassword = "password";
     private Connection connection = null;
     private PreparedStatement ps = null;
 
-    public JdbcConnector(String connectionUrl, 
-        String connectionUser, 
-        String connectionPassword)
+    public JdbcConnector()
     {
-        this.connectionUrl = connectionUrl;
-        this.connectionPassword = connectionPassword;
-        this.connectionUser = connectionUser;
         beginConnection();
     }
 
