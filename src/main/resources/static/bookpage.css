@@ -55,6 +55,7 @@ html body{
     grid-column: 2/3;
     grid-row: 5/6;
     justify-self: flex-end;
+    margin-right: 4vw;
 }
 
 .buy{
