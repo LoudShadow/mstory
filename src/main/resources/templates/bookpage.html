@@ -16,9 +16,13 @@
                 
                 <h2 class="bookTitle" th:text="${book.title}"></h2>
                 <img class="bookImg" th:attr="src=${book.imageUrl}" alt="book 1">
-                <ul class="bookAuthour">
-                    <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
-                </ul>
+                <div class="bookAuthour">
+                    <h3 th:text="${#lists.size(book.authors) gt 1} ? 'Authors' : 'Author'" >Authour</h3>
+                    
+                    <ul>
+                        <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
+                    </ul>
+                </div>
                 <!-- <p class="bookPrice">$<span th:text="${book.price}"></span></p>
                 <p class="bookDescription" th:text="${book.description}"></p> -->
                 <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
@@ -30,6 +34,7 @@
                         hx-swap="beforeend"
                         hx-target=".cartItems"
                         hx-on:click="toggleCart()"
+                        hx-delay="1000"
                     >Buy</button>
                 </div>
             </div>
@@ -38,5 +43,4 @@
 
             
     </body>
-
 </html>
