@@ -60,7 +60,7 @@ public class AuthorController {
         ArrayList<Author> authorsList = new ArrayList<Author>();
 
         try {
-            ResultSet rs = jdbcConnector.prepareAndExecuteStatement(sql);
+            ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
 
             while (rs.next()) {
                 Author a = new Author();

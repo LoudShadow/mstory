@@ -36,12 +36,32 @@ public class JdbcConnector {
         return connection.prepareStatement(query);
     }
 
-    public ResultSet prepareAndExecuteStatement(String query) throws SQLException{
+    public ResultSet prepareAndExecuteQuery(String query) throws SQLException{
         ps = connection.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         return rs;
     }
 
+    // This must have the id column named as "id"
+    public int prepareExecuteReturnId(String query) throws SQLException{
+        ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("id");
+    }
+
+    public void prepareAndExecuteUpdate(String query) throws SQLException {
+        ps = connection.prepareStatement(query);
+        ps.executeUpdate();
+    }
+
+    public int getId(String query) throws SQLException{
+        ps = connection.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int id = rs.getInt("id");
+        return id;
+    }
 
     public void setConnectionUrl(String newUlr){
         this.connectionUrl = newUlr;

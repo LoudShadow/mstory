@@ -3,11 +3,14 @@ package com.group1.mstory.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.group1.mstory.model.BookTile;
 import com.group1.mstory.objects.Book;
+import com.mysql.cj.protocol.Resultset;
 import com.group1.mstory.connectors.JdbcConnector;
 
 
@@ -32,7 +35,7 @@ public class BookController {
         ArrayList<BookTile> bookTileList = new ArrayList<BookTile>();
 
         try{
-            ResultSet rs = jdbcConnector.prepareAndExecuteStatement(sql);
+            ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
 
             while (rs.next()){
                 BookTile bt = new BookTile(rs);
@@ -89,6 +92,60 @@ public class BookController {
     public Book getBookByBookId(int id){
         String sql = "SELECT * FROM Books WHERE BooksId = ?;";
         return getBook(sql, id);
+    }
+
+
+    public void addBook(
+        String title,
+        List<String> authorIds,
+        String description,
+        int publisherId,
+        int price,
+        String isbn,
+        String publicationDate,
+        String imageUrl,
+        String binding,
+        int pageCount,
+        double weight){
+
+        String sql;
+
+        // SQL to add a new book to Books Table
+        sql = "INSERT INTO Books (publisherid, isbn, title, publishdate, imageurl, pagecount, binding, weight, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1, publisherId);
+            ps.setString(2, isbn);
+            ps.setString(3, title);
+            ps.setString(4, publicationDate);
+            ps.setString(5, imageUrl);
+            ps.setInt(6, pageCount);
+            ps.setString(7, binding);
+            ps.setDouble(8, weight);
+            ps.setString(9, description);
+            ps.executeUpdate();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        // SQL To add link Authors <-> Book
+        try{
+            sql = "SELECT LAST_INSERT_ID() AS id";
+            int bookId = jdbcConnector.prepareExecuteReturnId(sql);
+            System.out.println("BookId: " + bookId);
+
+            for (String authorId : authorIds){
+                sql = "INSERT INTO Author_Book (authorid, bookid) VALUES (?,?)";
+                PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+                ps.setInt(1, Integer.parseInt(authorId));
+                ps.setInt(2, bookId);
+                ps.executeUpdate();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
 

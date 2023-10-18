@@ -53,21 +53,6 @@ public class CorePages {
         return "bookpage.html";
     }
 
-    @RequestMapping(value = "/addAuthor", method = RequestMethod.POST)
-    public String addAuthor( @RequestParam("name") String name){
-        ac.addAuthor(name);
-        return "adding/index.html";
-    }
 
-    @RequestMapping(value = "/addPublisher", method = RequestMethod.POST)
-    public String addPublisher( @RequestParam("name") String name){
-        pc.addPublisher(name);
-        return "adding/index.html";
-    }
-
-    @RequestMapping(value = "/addIllustrator", method = RequestMethod.POST)
-    public String addIllustrator( @RequestParam("name") String name){
-        ic.addIllustrator(name);
-        return "adding/index.html";
-    }
+        
 }
