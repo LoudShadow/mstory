@@ -16,11 +16,6 @@ header h1{
 .search{
     justify-self: flex-end;
 }
-.sidebar{
-    grid-column: 1/2;
-    grid-row: 2/3;
-    background-color: green;
-}
 
 .searchBar{
     background: none;
@@ -41,4 +36,90 @@ header h1{
     aspect-ratio: 1/1;
 
     color: black;
+}
+
+#cartWrapper{
+    flex-direction: column;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition: background-color 0.5s ease-out;
+}
+
+#cartWrapper.shown{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#shoppingCart{
+    width: 0;
+    height: 100vh;
+    align-self: flex-end;
+    background-color: white;
+    border-left: black 1px solid;
+
+    transition: width 0.5s ease-out;    
+}
+
+#shoppingCart.shown{
+    width: 30vw;
+    border-left: none;
+}
+
+
+.cart{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+.cartTitle{
+    text-align: center;
+}
+
+.cartItems{
+    flex-grow: 1;
+}
+.cartItem{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: stretch;
+    border-top: black 1px solid;
+}
+.endLine{
+    border-bottom: black 1px solid;
+}
+.cartItemInfo{
+    flex-grow: 1;
+
+}
+.cartRemove{
+    background-color: transparent;
+    color: black;
+    border: none;
+    border-left: black 1px solid;
+    padding: 10px;
+    font-size: small;
+    cursor: pointer;
+}
+.cartRemove:hover{
+    background-color: red;
+}
+
+.checkoutButton{
+    width: 100%;
+    padding: 20px 10px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-top: black 1px solid;
+}
+.checkoutButton:hover{
+    background-color: rgb(150, 150, 150);
+    cursor: pointer;
 }
