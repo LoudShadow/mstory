@@ -58,7 +58,6 @@ header h1{
 
 #shoppingCart{
     width: 0;
-    height: 100vh;
     align-self: flex-end;
     background-color: white;
     border-left: black 1px solid;
@@ -75,8 +74,8 @@ header h1{
 .cart{
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: stretch;
+    flex-grow: 1;
 }
 .cartTitle{
     text-align: center;
@@ -84,13 +83,15 @@ header h1{
 
 .cartItems{
     flex-grow: 1;
+    height: 20px;
+    overflow-y: scroll;
 }
 .cartItem{
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: stretch;
-    border-top: black 1px solid;
+    border-bottom: black 1px solid;
 }
 .endLine{
     border-bottom: black 1px solid;
@@ -98,6 +99,11 @@ header h1{
 .cartItemInfo{
     flex-grow: 1;
 
+}
+.cartImage{
+    height: 150px;
+    width: 100px;
+    object-fit: contain;
 }
 .cartRemove{
     background-color: transparent;
