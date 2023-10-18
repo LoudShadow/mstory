@@ -58,7 +58,7 @@ public class PublisherController {
         ArrayList<Publisher> publishersList = new ArrayList<Publisher>();
 
         try{
-            ResultSet rs = jdbcConnector.prepareAndExecuteStatement(sql);
+            ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
 
             while(rs.next()){
                 Publisher p = new Publisher();

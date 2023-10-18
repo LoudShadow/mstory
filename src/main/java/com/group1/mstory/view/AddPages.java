@@ -1,14 +1,18 @@
 package com.group1.mstory.view;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.BookController;
+import com.group1.mstory.controller.IllustratorController;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.objects.Author;
 
@@ -18,6 +22,14 @@ public class AddPages {
     AuthorController ac;
     @Autowired
     PublisherController pc;
+
+    @Autowired
+    BookController bc;
+
+    @Autowired
+    IllustratorController ic;
+
+
 
    @RequestMapping(value = "/adding" , method = RequestMethod.GET)
     public String newItems(){
@@ -46,4 +58,44 @@ public class AddPages {
     public String newIllustrator(){
         return "adding/illustrator.html";
     }
+
+    @RequestMapping(value = "/adding/book", method = RequestMethod.POST)
+    public String addBook( 
+        @RequestParam("title") String title,
+        @RequestParam("author") String authorId,
+        @RequestParam("description") String description,
+        @RequestParam("publisher") String publisherId,
+        @RequestParam("price") String price,
+        @RequestParam("isbn") String isbn){
+        bc.addBook(
+            title,
+            Arrays.asList(authorId.split("\\s*,\\s*")),
+            description,
+            Integer.parseInt(publisherId),
+            Integer.valueOf(price),
+            isbn
+        );
+        return "adding/index.html";
+    }
+
+    @RequestMapping(value = "/addAuthor", method = RequestMethod.POST)
+    public String addAuthor( @RequestParam("name") String name){
+        ac.addAuthor(name);
+        return "adding/index.html";
+    }
+
+    @RequestMapping(value = "/addPublisher", method = RequestMethod.POST)
+    public String addPublisher( @RequestParam("name") String name){
+        pc.addPublisher(name);
+        return "adding/index.html";
+    }
+
+    @RequestMapping(value = "/addIllustrator", method = RequestMethod.POST)
+    public String addIllustrator( @RequestParam("name") String name){
+        ic.addIllustrator(name);
+        return "adding/index.html";
+    }
+
+
+
 }
