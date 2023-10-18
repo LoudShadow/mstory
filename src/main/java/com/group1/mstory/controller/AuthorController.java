@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.group1.mstory.connectors.JdbcConnector;
+import com.group1.mstory.objects.Author;
 
 @Component
 public class AuthorController {
@@ -53,8 +54,7 @@ public class AuthorController {
         }
     }
 
-    public static ArrayList<Author> getAllAuthors() {
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey", "root", "password");
+    public ArrayList<Author> getAllAuthors() {
         String sql = "SELECT * FROM Authors;";
 
         ArrayList<Author> authorsList = new ArrayList<Author>();
@@ -77,8 +77,7 @@ public class AuthorController {
         return authorsList;
     }
 
-    public static Author getAuthorById(int id) {
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey", "root", "password");
+    public Author getAuthorById(int id) {
         String sql = "SELECT * FROM Authors WHERE AuthorId = ?;";
 
         try {
