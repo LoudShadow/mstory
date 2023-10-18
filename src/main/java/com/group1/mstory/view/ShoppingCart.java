@@ -1,5 +1,6 @@
 package com.group1.mstory.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +13,14 @@ import com.group1.mstory.objects.Book;
 
 @Controller
 public class ShoppingCart {
+    @Autowired
+    BookController bc;
+
+
     @RequestMapping(value = "/cart/addBook", method = RequestMethod.GET)
     public String addItem(@RequestParam("id") String idParam, Model model){
         int id = Integer.parseInt(idParam);
-        Book b = BookController.getBookByBookId(id);
+        Book b = bc.getBookByBookId(id);
 
         model.addAttribute("book", b);
         return "shoppingCart/cartitem.html";
