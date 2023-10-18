@@ -3,21 +3,20 @@ package com.group1.mstory.controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.group1.mstory.model.BookTile;
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import com.group1.mstory.connectors.JdbcConnector;
 
 
 @Component
 public class PublisherController {
+
+    @Autowired
+    JdbcConnector jdbcConnector;
     
 
-    public static boolean addPublisher(String name) {
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+    public boolean addPublisher(String name) {
         String sql = "INSERT INTO Publishers(name) VALUES (?);";
 
         try{
@@ -35,10 +34,8 @@ public class PublisherController {
     }
 
 
-    public static String getPublisherByBookId(int id){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+    public String getPublisherByBookId(int id){
         String sql = "SELECT * FROM Publishers WHERE PublisherId = ?;";
-
 
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);

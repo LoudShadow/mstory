@@ -3,7 +3,10 @@ package com.group1.mstory.objects;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.BookController;
 import com.group1.mstory.controller.PublisherController;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +19,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
+    @Autowired
+    AuthorController ac;
+    @Autowired
+    BookController bc;
+    @Autowired
+    PublisherController pc;
+
     private int bookId;
     private int publisherId;
     private String isbn;
@@ -40,8 +50,8 @@ public class Book {
             this.pageCount = rs.getInt("pagecount");
             this.binding = rs.getString("binding");
             this.weight = (float) rs.getLong("weight");
-            this.publisher = PublisherController.getPublisherByBookId(rs.getInt("publisherid"));
-            this.authors = AuthorController.getAuthorsByBookId(rs.getInt("booksid"));
+            this.publisher = pc.getPublisherByBookId(rs.getInt("publisherid"));
+            this.authors = ac.getAuthorsByBookId(rs.getInt("booksid"));
         } catch (Exception ex){
             ex.printStackTrace();
         }
