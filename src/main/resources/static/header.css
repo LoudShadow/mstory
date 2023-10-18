@@ -90,7 +90,7 @@ header h1{
     flex-direction: row;
     gap: 10px;
     align-items: stretch;
-    border-top: black 1px solid;
+    border-bottom: black 1px solid;
 }
 .endLine{
     border-bottom: black 1px solid;
@@ -98,6 +98,11 @@ header h1{
 .cartItemInfo{
     flex-grow: 1;
 
+}
+.cartImage{
+    height: 150px;
+    width: 100px;
+    object-fit: contain;
 }
 .cartRemove{
     background-color: transparent;

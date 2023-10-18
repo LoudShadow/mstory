@@ -24,7 +24,13 @@
                 <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
                 <div class="buy">
                     <p class="stockText instock">In Stock</p>
-                    <button class="buyButton instock">Buy</button>
+                    <button class="buyButton instock"
+                        th:hx-get="@{/cart/addBook(id=${book.bookId})}"
+                        hx-trigger="click"
+                        hx-swap="beforeend"
+                        hx-target=".cartItems"
+                        hx-on:click="toggleCart()"
+                    >Buy</button>
                 </div>
             </div>
         </div>
