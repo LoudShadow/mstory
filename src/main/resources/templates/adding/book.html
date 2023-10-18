@@ -1,18 +1,18 @@
 
 <div class="page">
-    <form class="addingform" action="/adding/author" method="POST">
+    <form class="addingform" action="/adding/book" method="POST">
         <label for="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Book title">
         <label for="author">Author</label>
-        <input type="select" id="author" name="author" placeholder="Author name">
-
-        <select name="author" id="author">
-            <option th:each="author : ${authours}" th:value="${author.authorId}" th:text="${author.name}"></option>
+        <select name="author" id="authorMany" multiple>
+            <option th:each="author : ${authors}" th:value="${author.authorId}" th:text="${author.name}"></option>
         </select>
         <label for="description">Description</label>
         <input type="text" id="description" name="description" placeholder="Book description">
         <label for="publisher">Publisher</label>
-        <input type="text" id="publisher" name="publisher" placeholder="Book publisher">
+        <select name="publisher" id="publisher">
+            <option th:each="publisher : ${publishers}" th:value="${publisher.publisherID}" th:text="${publisher.name}"></option>
+        </select>
         <label for="price">Price</label>
         <input type="text" id="price" name="price" placeholder="Book price">
         <label for="isbn">ISBN</label>
