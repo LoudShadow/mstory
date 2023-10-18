@@ -3,10 +3,13 @@ package com.group1.mstory.controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.group1.mstory.connectors.JdbcConnector;
+import com.group1.mstory.objects.Author;
+import com.group1.mstory.objects.Publisher;
 
 
 @Component
@@ -48,6 +51,26 @@ public class PublisherController {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<Publisher> getAllPublishers(){
+        String sql = "SELECT * FROM Publishers;";
+        ArrayList<Publisher> publishersList = new ArrayList<Publisher>();
+
+        try{
+            ResultSet rs = jdbcConnector.prepareAndExecuteStatement(sql);
+
+            while(rs.next()){
+                Publisher p = new Publisher();
+                p.setPublisherID(rs.getInt("PublisherId"));
+                p.setName(rs.getString("Name"));
+                publishersList.add(p);
+            }
+        }catch(Exception ex){
+            System.out.println("Ruined [All Publishers]"); 
+            ex.printStackTrace();
+        }
+        return publishersList;
     }
 }
 

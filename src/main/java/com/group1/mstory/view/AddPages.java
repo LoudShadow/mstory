@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.objects.Author;
 
 @Controller
 public class AddPages {
     @Autowired
     AuthorController ac;
+    @Autowired
+    PublisherController pc;
 
    @RequestMapping(value = "/adding" , method = RequestMethod.GET)
     public String newItems(){
@@ -28,8 +31,8 @@ public class AddPages {
 
     @RequestMapping(value = "/adding/book" , method = RequestMethod.GET)
     public String newBook(Model model){
-        ArrayList<Author> authors= ac.getAllAuthors();
-        model.addAttribute("authors", authors);
+        model.addAttribute("authors", ac.getAllAuthors());
+        model.addAttribute("publishers", pc.getAllPublishers());
 
         return "adding/book.html";
     }
