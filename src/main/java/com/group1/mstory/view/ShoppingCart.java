@@ -26,7 +26,7 @@ public class ShoppingCart {
         int id = Integer.parseInt(idParam);
 
         ArrayList<Book> cart = new ArrayList<Book>();
-        cart.add(bc.getBookByBookId(id));
+        cart.add(bookController.getBookByBookId(id));
 
         model.addAttribute("shoppingCart", cart);
         return "shoppingCart/cartitem.html";
