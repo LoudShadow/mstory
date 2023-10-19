@@ -54,4 +54,36 @@ public class BasketController {
         
         return null;
     }
+
+    public void addProductByProductId(int productId){
+        String sql = "INSERT INTO Orders_Products (orderid, productid, price) values (?,?,?);";
+
+        try {
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1,1);
+            ps.setInt(2, productId);
+            ps.setInt(3, 100);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+
+    public void removeProductByProductId(int productId){
+        String sql = "DELETE FROM Orders_Products WHERE orderid = ? AND productid = ? LIMIT 1;";
+
+        try {
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1,1);
+            ps.setInt(2,productId);
+            System.out.println(ps.toString());
+            ps.executeUpdate();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+
 }

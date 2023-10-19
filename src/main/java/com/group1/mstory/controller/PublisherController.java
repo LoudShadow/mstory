@@ -24,7 +24,6 @@ public class PublisherController {
         try{
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setString(1,name);
-            System.out.println(ps.toString());
             ps.executeUpdate();
             return true;
 
@@ -42,7 +41,6 @@ public class PublisherController {
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
-            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             rs.next();
             return rs.getString("name");
@@ -66,7 +64,6 @@ public class PublisherController {
                 publishersList.add(p);
             }
         }catch(Exception ex){
-            System.out.println("Ruined [All Publishers]"); 
             ex.printStackTrace();
         }
         return publishersList;

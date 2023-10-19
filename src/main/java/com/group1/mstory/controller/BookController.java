@@ -36,7 +36,6 @@ public class BookController {
                 bookTileList.add(bt);
             }
         } catch (Exception ex){
-            System.out.println("Ruined");
             ex.printStackTrace();
         }
 
@@ -55,7 +54,6 @@ public class BookController {
             ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
             return buildBookTiles(rs);
         } catch (Exception ex){
-            System.out.println("Ruined");
             ex.printStackTrace();
             return null;
         }
@@ -84,7 +82,6 @@ public class BookController {
             ResultSet rs = ps.executeQuery();
             return buildBookTiles(rs);
         } catch (Exception ex){
-            System.out.println("Ruined");
             ex.printStackTrace();
             return null;
         }
@@ -97,10 +94,8 @@ public class BookController {
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
-            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             rs.next();
-            System.out.println(rs.toString());
 
             Book book = new Book(
                     rs.getInt("booksid"),
@@ -134,9 +129,9 @@ public class BookController {
     }
 
     public Book getBookByProductId(int id){
-        String sql = "SELECT Books.* FROM Books" + 
+        String sql = "SELECT * FROM Books " + 
         "INNER JOIN Book_Product ON Book_Product.BookId = Books.BooksId " +
-        "INNER JOIN Products ON Products.BookId = Book_Product.ProductId" + 
+        "INNER JOIN Products ON Products.BookId = Book_Product.ProductId " + 
         "WHERE Products.ProductId = ?;";
 
         return getBook(sql, id, true);
