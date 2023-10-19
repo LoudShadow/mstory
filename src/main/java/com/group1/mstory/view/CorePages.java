@@ -13,6 +13,7 @@ import com.group1.mstory.controller.BookController;
 import com.group1.mstory.objects.Book;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.controller.AuthorController;
+import com.group1.mstory.controller.BasketController;
 import com.group1.mstory.controller.IllustratorController;
 
 import com.group1.mstory.model.BookTile;
@@ -20,20 +21,23 @@ import com.group1.mstory.model.BookTile;
 @Controller
 public class CorePages {
     @Autowired
-    AuthorController ac;
+    AuthorController authorController;
 
     @Autowired
-    BookController bc;
+    BookController bookController;
 
     @Autowired
-    PublisherController pc;
+    PublisherController publisherController;
 
     @Autowired
-    IllustratorController ic;
+    IllustratorController illustratorController;
+
+    @Autowired
+    BasketController basketController;
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String index(Model model){
-        ArrayList<BookTile> books = bc.getAllBookTiles();
+        ArrayList<BookTile> books = bookController.getAllBookTiles();
         model.addAttribute("books", books);
 
         return "allBooks.html";
@@ -42,7 +46,7 @@ public class CorePages {
     @RequestMapping(value = "/bookpage",method = RequestMethod.GET)
     public String page(Model model,@RequestParam("id") String idParam){
         int id = Integer.parseInt(idParam);
-        Book b = bc.getBookByBookId(id);
+        Book b = bookController.getBookByBookId(id);
         model.addAttribute("book", b);
         b.display();
         return "bookpage.html";
@@ -50,7 +54,7 @@ public class CorePages {
 
     @RequestMapping(value = "/testBookPage", method = RequestMethod.GET)
     public String testBookPage(){
-        return "bookpage.html";
+        return "shoppingCart/blank.html";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
