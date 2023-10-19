@@ -46,6 +46,36 @@
                         th:disabled="${book.product.productCount eq 0}"
                     >Buy</button>
                 </div>
+                <div class="share">
+                    <script>
+                        function showPopup(){
+                            document.querySelector('.sharePopup').style.display = 'flex';
+                            document.querySelector('.sharePopupInput').value = window.location.href;
+                        }
+                        function closePopup(){
+                            document.querySelector('.sharePopup').style.display = 'none';
+                        }
+                        function copyText(){
+
+                            document.getElementsByClassName("sharePopupButton")[0].classList.add("copied");
+                            var copyText = window.location.href;
+                            navigator.clipboard.writeText(copyText);
+                            setTimeout(closePopup, 1000)
+                        }
+                    </script>
+                    <button class="shareButton" onclick="showPopup()">
+                        SHARE 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                            <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                          </svg>
+                    </button>
+
+                    <div class="sharePopup" >
+                        <input type="text" class="sharePopupInput shareButton">
+                        <button class="sharePopupButton shareButton" onclick="copyText()">Copy</button>
+                        <button class="closePopupButton shareButton" onclick="closePopup()">X</button>
+                    </div>
+                </div>
             </div>
         </div>
 

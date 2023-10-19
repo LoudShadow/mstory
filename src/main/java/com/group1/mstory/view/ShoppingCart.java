@@ -25,9 +25,9 @@ public class ShoppingCart {
     public String addItem(@RequestParam("id") String idParam, Model model){
         int id = Integer.parseInt(idParam);
 
-        ArrayList<Book> cart = new ArrayList<Book>();
-
         basketController.addProductByProductId(Integer.parseInt(idParam));
+        
+        ArrayList<Book> cart = new ArrayList<Book>();
         cart.add(bookController.getBookByProductId(id));
 
         model.addAttribute("shoppingCart", cart);

@@ -52,7 +52,6 @@ public class CorePages {
         float price = ((float) b.getProduct().getPrice()) / 100;
         model.addAttribute("book", b);
         model.addAttribute("price", price);
-        b.display();
         return "bookpage.html";
     }
 

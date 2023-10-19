@@ -63,6 +63,22 @@ html body{
     margin-right: 4vw;
 }
 
+.share{
+    grid-column: 1/2;
+    grid-row: 7/8;
+}
+.shareButton{
+    padding: 5px;
+    font-size: x-large;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    border: black 1px solid;
+    border-radius: 5px;
+}
 .buy{
     grid-column: 1/3;
     grid-row: 6/7;
@@ -101,4 +117,38 @@ html body{
 .buyButton.instock{
     background-color: green;
 
+}
+
+.sharePopup{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.share{
+    position: relative;
+
+}
+
+.sharePopupInput{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.sharePopupButton{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.sharePopupButton.copied{
+    background-color: green;
+}
+.closePopupButton{
+    background-color: red
+    
+    ;
 }
