@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.group1.mstory.model.BookTile;
 import com.group1.mstory.objects.Book;
-import com.mysql.cj.protocol.Resultset;
 import com.group1.mstory.connectors.JdbcConnector;
 
 
@@ -20,10 +19,13 @@ public class BookController {
     JdbcConnector jdbcConnector;
 
     @Autowired
-    AuthorController ac;
+    AuthorController authorController;
 
     @Autowired
-    PublisherController pc;
+    PublisherController publisherController;
+
+    @Autowired
+    ProductController productController;
 
     public ArrayList<BookTile> getAllBookTiles(){
 
@@ -71,8 +73,8 @@ public class BookController {
                     rs.getInt("pagecount"),
                     rs.getString("binding"),
                     (float) rs.getLong("weight"),
-                    pc.getPublisherByBookId(rs.getInt("publisherid")),
-                    ac.getAuthorsByBookId(rs.getInt("booksid")));
+                    publisherController.getPublisherByBookId(rs.getInt("publisherid")),
+                    authorController.getAuthorsByBookId(rs.getInt("booksid")));
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -95,7 +97,7 @@ public class BookController {
     }
 
 
-    public void addBook(
+    public int addBook(
         String title,
         List<String> authorIds,
         String description,
@@ -128,10 +130,11 @@ public class BookController {
             ex.printStackTrace();
         }
 
+        // Getting id of added book
+        int bookId = jdbcConnector.getLastInsertId();
+        
         // SQL To add link Authors <-> Book
         try{
-            sql = "SELECT LAST_INSERT_ID() AS id";
-            int bookId = jdbcConnector.prepareExecuteReturnId(sql);
             System.out.println("BookId: " + bookId);
 
             for (String authorId : authorIds){
@@ -145,6 +148,21 @@ public class BookController {
             ex.printStackTrace();
         }
 
+        // SQL To add new product
+        int productId = productController.addProduct(1,1,bookId);
+
+        // SQL to link Product <-> Book
+        try {
+            sql = "INSERT INTO Book_Product (bookid,productid) VALUES (?,?)";
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1, bookId);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return bookId;
 
     }
 

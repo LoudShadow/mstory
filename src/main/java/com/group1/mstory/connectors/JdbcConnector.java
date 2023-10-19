@@ -71,6 +71,19 @@ public class JdbcConnector {
         return this.connectionUrl;
     }
 
+    public int getLastInsertId(){
+        String sql = "SELECT LAST_INSERT_ID() AS id";
+        try{
+            ResultSet rs = prepareAndExecuteQuery(sql);
+            rs.next();
+            return rs.getInt("id");
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return -1;
+
+    }
+
 
 
 }
