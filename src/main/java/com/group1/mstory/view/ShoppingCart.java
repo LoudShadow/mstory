@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.group1.mstory.controller.BasketController;
 import com.group1.mstory.controller.BookController;
 import com.group1.mstory.objects.Book;
 
@@ -17,6 +18,8 @@ public class ShoppingCart {
     @Autowired
     BookController bc;
 
+    @Autowired
+    BasketController basketController;
 
     @RequestMapping(value = "/cart/addBook", method = RequestMethod.GET)
     public String addItem(@RequestParam("id") String idParam, Model model){
@@ -31,8 +34,7 @@ public class ShoppingCart {
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String getCart(@RequestParam("id") String idParam, Model model){
         int id = Integer.parseInt(idParam);
-        ArrayList<Book> cart = new ArrayList<Book>();
-        cart.add(bc.getBookByBookId(id));
+        ArrayList<Book> cart = basketController.getBasketProductsFromOrderId(id);
 
         model.addAttribute("shoppingCart", cart);
         return "shoppingCart/cartitem.html";

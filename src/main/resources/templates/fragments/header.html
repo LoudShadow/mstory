@@ -66,9 +66,10 @@
     </header>
     <div class="cart" id="shoppingCart">
         <h2 class="cartTitle">Shopping Cart</h2>
-        <div class="cartItems">
-
-            <div th:replace = 'shoppingCart/cartItem.html'></div>
+        <div class="cartItems" 
+                hx-trigger="load"
+                hx-get="/cart?id=1"
+                hx-swap="beforeend">
             
             <div class="endLine"></div>
             
