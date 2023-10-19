@@ -20,6 +20,7 @@ public class BookTile {
     private String title;
     private ArrayList<String> authors;
     private String description;
+    private String shotDesc;
     private int PublisherId;
     private String isbn;
     private int price;
@@ -34,6 +35,8 @@ public class BookTile {
             this.setIsbn(rs.getString("isbn"));
             this.setImageUrl(rs.getString("imageurl"));
             this.setPublisherId(rs.getInt("publisherid"));
+            this.setDescription(rs.getString("description"));
+            this.shotDesc = this.shortDesc();
             this.setAuthors( new ArrayList<String>(Arrays.asList(rs.getString("authors").split(","))));
         } catch (SQLException ex){
             ex.printStackTrace();
@@ -46,5 +49,12 @@ public class BookTile {
         this.setIsbn(book.getIsbn());
         this.setImageUrl(book.getImageUrl());
         this.setPublisherId(book.getPublisherId());     
+    }
+
+    public String shortDesc(){
+        if (this.description.length() < 100){
+            return this.description;
+        }
+        return this.description.substring(0, 100)+"...";
     }
 }

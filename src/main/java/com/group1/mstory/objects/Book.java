@@ -16,6 +16,7 @@ public class Book {
     private int publisherId;
     private String isbn;
     private String title;
+    private String description;
     private String publishDate;
     private String imageUrl;
     private int pageCount;

@@ -24,7 +24,7 @@
                             <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
                         </ul>
                         <p class="bookPrice">$<span th:text="${book.price}"></span></p>
-                        <p class="bookDescription" th:text="${book.description}"></p>
+                        <p class="bookDescription" th:text="${book.shotDesc}"></p>
                         <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
                     </div>
                 </a>

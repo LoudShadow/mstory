@@ -1,4 +1,4 @@
-<div class="cartItem">
+<div th:each="book : ${shoppingCart}" class="cartItem">
     <img class="cartImage" th:attr="src=${book.imageUrl}" alt="Book cover">
     <div class="cartItemInfo">
         <h3 class="cartItemTitle" th:text="${book.title}">Book Title</h3>

@@ -8,6 +8,7 @@ header{
     padding: 0 2vw;
 
     height: fit-content;
+    border-bottom: black 2px solid;
 }
 header h1{
     flex-grow: 1;

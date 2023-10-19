@@ -20,9 +20,16 @@
                     <h3 th:text="${#lists.size(book.authors) gt 1} ? 'Authors' : 'Author'" >Authour</h3>
                     
                     <ul>
-                        <li th:each="authour : ${book.authors}" th:text="${authour}"></li>
+                        <li th:each="author : ${book.authors}" ><a th:href="@{/search(search=${author})}" th:text="${author}"></a></li>
                     </ul>
                 </div>
+                <div class="bookPublisher">
+                    <h3>Publisher</h3>
+                    <ul>
+                        <li><a th:href="@{/search(search=${book.publisher})}" th:text="${book.publisher}"></a> </li>
+                    </ul>
+                </div>
+                <p class="bookDescription" th:text="${book.description}"></p>
                 <!-- <p class="bookPrice">$<span th:text="${book.price}"></span></p>
                 <p class="bookDescription" th:text="${book.description}"></p> -->
                 <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>

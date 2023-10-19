@@ -9,8 +9,6 @@ html body{
     margin-right: 20vw;
     margin-top: 5vh;
     display: grid;
-    gap: 20px;
-
 }
 
 
@@ -18,6 +16,7 @@ html body{
     grid-column: 1/2;
     grid-row: 1/2;
     font-size: 3em;
+    margin: 0;
 }
 
 .bookImg{
@@ -27,7 +26,7 @@ html body{
     font-size: 1.5em;
     margin: 0;
 
-    height: 400px;
+    height: 500px;
     justify-self: flex-end;
 
 }
@@ -36,9 +35,14 @@ html body{
     grid-row: 2/3;
     font-size: large;
 }
-.bookDescription{
+.bookPublisher{
     grid-column: 1/2;
     grid-row: 3/4;
+    font-size: large;
+}
+.bookDescription{
+    grid-column: 1/2;
+    grid-row: 4/5;
     align-self: flex-start;
     width: 50em;
     word-wrap: break-word;

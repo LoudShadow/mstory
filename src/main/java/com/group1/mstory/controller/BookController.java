@@ -69,7 +69,7 @@ public class BookController {
         "            ' '," +
         "            Books.Description," +
         "            ' '," +
-        "            Publishers.PublisherId," +
+        "            Publishers.Name," +
         "            ' '," +
         "            GROUP_CONCAT(Authors.Name)) AS searchText FROM Books " +
         "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId " +
@@ -107,6 +107,7 @@ public class BookController {
                     rs.getInt("publisherid"),
                     rs.getString("isbn"),
                     rs.getString("title"),
+                    rs.getString("description"),
                     rs.getString("publishdate"),
                     rs.getString("imageurl"),
                     rs.getInt("pagecount"),
