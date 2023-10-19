@@ -1,6 +1,5 @@
 package com.group1.mstory.view;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import com.group1.mstory.controller.AuthorController;
 import com.group1.mstory.controller.BookController;
 import com.group1.mstory.controller.IllustratorController;
 import com.group1.mstory.controller.PublisherController;
-import com.group1.mstory.objects.Author;
 
 @Controller
 public class AddPages {

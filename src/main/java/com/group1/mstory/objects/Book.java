@@ -1,13 +1,6 @@
 package com.group1.mstory.objects;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.group1.mstory.controller.AuthorController;
-import com.group1.mstory.controller.BookController;
-import com.group1.mstory.controller.PublisherController;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

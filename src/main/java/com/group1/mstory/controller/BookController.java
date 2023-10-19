@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.group1.mstory.model.BookTile;
 import com.group1.mstory.objects.Book;
-import com.mysql.cj.protocol.Resultset;
 import com.group1.mstory.connectors.JdbcConnector;
 
 
