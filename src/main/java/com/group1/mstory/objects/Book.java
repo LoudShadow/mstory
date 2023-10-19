@@ -2,6 +2,8 @@ package com.group1.mstory.objects;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     private int bookId;
     private int publisherId;
@@ -24,6 +26,7 @@ public class Book {
     private float weight;
     private String publisher;
     private ArrayList<String> authors;
+    private Product product;
 
     public void display(){
         System.out.println(bookId);

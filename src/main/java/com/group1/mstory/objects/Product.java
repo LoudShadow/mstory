@@ -14,4 +14,5 @@ public class Product {
     private int productType;
     private int productCount;
     private int bookId;
+    private int price;
 }
