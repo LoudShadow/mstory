@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- book store -->
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head>
         <link rel="stylesheet" href="style.css">
         <div th:replace = 'fragments/head.html'></div>
@@ -12,7 +12,10 @@
             <header th:insert="fragments/header.html"></header>
             
             <div class="main">
-
+                    <div sec:authorize="isAuthenticated()">
+                        Authenticated as <span sec:authentication="name"></span>
+                        <button type="button" th:onclick="'window.location.href=\'/logout\''">Logout</button>
+                    </div>
                 <a th:each="book : ${books}" class="bookTileLink" th:href="@{bookpage(id=${book.bookId})}">
                     <div class="bookTile">
                         <h2 class="bookTitle" th:text="${book.title}"></h2>

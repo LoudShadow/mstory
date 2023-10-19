@@ -16,7 +16,7 @@ import com.group1.mstory.objects.Book;
 @Controller
 public class ShoppingCart {
     @Autowired
-    BookController bc;
+    BookController bookController;
 
     @Autowired
     BasketController basketController;
@@ -24,6 +24,7 @@ public class ShoppingCart {
     @RequestMapping(value = "/cart/addBook", method = RequestMethod.GET)
     public String addItem(@RequestParam("id") String idParam, Model model){
         int id = Integer.parseInt(idParam);
+
         ArrayList<Book> cart = new ArrayList<Book>();
         cart.add(bc.getBookByBookId(id));
 

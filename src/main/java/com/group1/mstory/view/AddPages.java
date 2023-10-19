@@ -14,20 +14,21 @@ import com.group1.mstory.controller.AuthorController;
 import com.group1.mstory.controller.BookController;
 import com.group1.mstory.controller.IllustratorController;
 import com.group1.mstory.controller.PublisherController;
-import com.group1.mstory.objects.Author;
 
 @Controller
 public class AddPages {
-    @Autowired
-    AuthorController ac;
-    @Autowired
-    PublisherController pc;
 
     @Autowired
-    BookController bc;
+    AuthorController authorController;
 
     @Autowired
-    IllustratorController ic;
+    PublisherController publisherController;
+
+    @Autowired
+    BookController bookController;
+
+    @Autowired
+    IllustratorController illustratorController;
 
 
 
@@ -43,8 +44,8 @@ public class AddPages {
 
     @RequestMapping(value = "/adding/book" , method = RequestMethod.GET)
     public String newBook(Model model){
-        model.addAttribute("authors", ac.getAllAuthors());
-        model.addAttribute("publishers", pc.getAllPublishers());
+        model.addAttribute("authors", authorController.getAllAuthors());
+        model.addAttribute("publishers", publisherController.getAllPublishers());
 
         return "adding/book.html";
     }
@@ -72,7 +73,7 @@ public class AddPages {
         @RequestParam("binding") String binding,
         @RequestParam("pageCount") String pageCount,
         @RequestParam("weight") String weight){
-        bc.addBook(
+        bookController.addBook(
             title,
             Arrays.asList(authorId.split("\\s*,\\s*")),
             description,
@@ -90,19 +91,19 @@ public class AddPages {
 
     @RequestMapping(value = "/addAuthor", method = RequestMethod.POST)
     public String addAuthor( @RequestParam("name") String name){
-        ac.addAuthor(name);
+        authorController.addAuthor(name);
         return "adding/index.html";
     }
 
     @RequestMapping(value = "/addPublisher", method = RequestMethod.POST)
     public String addPublisher( @RequestParam("name") String name){
-        pc.addPublisher(name);
+        publisherController.addPublisher(name);
         return "adding/index.html";
     }
 
     @RequestMapping(value = "/addIllustrator", method = RequestMethod.POST)
     public String addIllustrator( @RequestParam("name") String name){
-        ic.addIllustrator(name);
+        illustratorController.addIllustrator(name);
         return "adding/index.html";
     }
 
