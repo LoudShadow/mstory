@@ -36,7 +36,7 @@
                 <div class="buy">
                     <p class="stockText instock">In Stock</p>
                     <button class="buyButton instock"
-                        th:hx-get="@{/cart/addBook(id=${book.bookId})}"
+                        th:hx-get="@{/cart/addBook(id=${book.product.productId})}"
                         hx-trigger="click"
                         hx-swap="beforeend"
                         hx-target=".cartItems"

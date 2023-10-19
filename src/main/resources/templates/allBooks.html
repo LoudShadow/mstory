@@ -12,10 +12,7 @@
             <header th:insert="fragments/header.html"></header>
             
             <div class="main">
-                    <div sec:authorize="isAuthenticated()">
-                        Authenticated as <span sec:authentication="name"></span>
-                        <button type="button" th:onclick="'window.location.href=\'/logout\''">Logout</button>
-                    </div>
+
                 <a th:each="book : ${books}" class="bookTileLink" th:href="@{bookpage(id=${book.bookId})}">
                     <div class="bookTile">
                         <h2 class="bookTitle" th:text="${book.title}"></h2>
