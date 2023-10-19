@@ -25,6 +25,22 @@ public class BookController {
     @Autowired
     PublisherController pc;
 
+    public ArrayList<BookTile> buildBookTiles(ResultSet rs){
+        ArrayList<BookTile> bookTileList = new ArrayList<BookTile>();
+
+        try{
+            while (rs.next()){
+                BookTile bt = new BookTile(rs);
+                bookTileList.add(bt);
+            }
+        } catch (Exception ex){
+            System.out.println("Ruined");
+            ex.printStackTrace();
+        }
+
+        return bookTileList;
+    }
+
     public ArrayList<BookTile> getAllBookTiles(){
 
         String sql = "SELECT Books.*, GROUP_CONCAT(Authors.Name) AS Authors FROM Books \r\n" + //
@@ -32,23 +48,46 @@ public class BookController {
                 "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId\r\n" + //
                 "GROUP BY Books.BooksId;";
 
-        ArrayList<BookTile> bookTileList = new ArrayList<BookTile>();
 
         try{
             ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
-
-            while (rs.next()){
-                BookTile bt = new BookTile(rs);
-                bookTileList.add(bt);
-            }
-
-            
+            return buildBookTiles(rs);
         } catch (Exception ex){
             System.out.println("Ruined");
             ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<BookTile> getTilesSearch(String searchTerm){
+        String sql = 
+        "SELECT * FROM (SELECT Books.* , " +
+        "    GROUP_CONCAT(Authors.Name) AS Authors," +
+        "    CONCAT(Books.Title, " +
+        "            ' '," +
+        "            Books.Description," +
+        "            ' '," +
+        "            Publishers.PublisherId," +
+        "            ' '," +
+        "            GROUP_CONCAT(Authors.Name)) AS searchText FROM Books " +
+        "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId " +
+        "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId " +
+        "INNER JOIN Publishers ON Books.PublisherId = Publishers.PublisherId " +
+        "GROUP BY Books.BooksId) as i " +
+        "WHERE searchText LIKE ?; ";
+
+        try{
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setString(1, "%" + searchTerm + "%");
+            ResultSet rs = ps.executeQuery();
+            return buildBookTiles(rs);
+        } catch (Exception ex){
+            System.out.println("Ruined");
+            ex.printStackTrace();
+            return null;
         }
 
-        return bookTileList;
+
     }
 
 

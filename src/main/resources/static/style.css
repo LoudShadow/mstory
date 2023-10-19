@@ -7,31 +7,27 @@ html body{
 .content{
     position: relative;
     height: 100vh;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .main{
-    grid-column: 2/3;
-    grid-row: 2/3;
     background-color: orange;
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 20px;
+    padding-left: 20vw;
+    padding-right: 20vw;
+    padding-top: 20px;
     align-content: flex-start;
     align-items: stretch;
-
+    flex-grow: 1;
     overflow-y: scroll;
 }
 
-.sidebar{
-    grid-column: 1/2;
-    grid-row: 2/3;
-    background-color: green;
-    width: 20vw;
-}
 
 .bookTile{
     background-color: #fff;
