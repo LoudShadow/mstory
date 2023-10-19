@@ -47,13 +47,70 @@ public class BookController {
     private static Book getBook(String sql, int id){
         JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
 
+
+        try{
+            ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
+            return buildBookTiles(rs);
+        } catch (Exception ex){
+            System.out.println("Ruined");
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<BookTile> getTilesSearch(String searchTerm){
+        String sql = 
+        "SELECT * FROM (SELECT Books.* , " +
+        "    GROUP_CONCAT(Authors.Name) AS Authors," +
+        "    CONCAT(Books.Title, " +
+        "            ' '," +
+        "            Books.Description," +
+        "            ' '," +
+        "            Publishers.Name," +
+        "            ' '," +
+        "            GROUP_CONCAT(Authors.Name)) AS searchText FROM Books " +
+        "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId " +
+        "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId " +
+        "INNER JOIN Publishers ON Books.PublisherId = Publishers.PublisherId " +
+        "GROUP BY Books.BooksId) as i " +
+        "WHERE searchText LIKE ?; ";
+
+        try{
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setString(1, "%" + searchTerm + "%");
+            ResultSet rs = ps.executeQuery();
+            return buildBookTiles(rs);
+        } catch (Exception ex){
+            System.out.println("Ruined");
+            ex.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+
+    private Book getBook(String sql, int id){
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
             System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             System.out.println(rs.toString());
-            return new Book(rs);
+
+            return new Book(
+                    rs.getInt("booksid"),
+                    rs.getInt("publisherid"),
+                    rs.getString("isbn"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("publishdate"),
+                    rs.getString("imageurl"),
+                    rs.getInt("pagecount"),
+                    rs.getString("binding"),
+                    (float) rs.getLong("weight"),
+                    pc.getPublisherByBookId(rs.getInt("publisherid")),
+                    ac.getAuthorsByBookId(rs.getInt("booksid")));
         } catch (Exception ex){
             ex.printStackTrace();
         }
