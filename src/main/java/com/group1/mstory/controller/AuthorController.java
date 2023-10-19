@@ -19,7 +19,6 @@ public class AuthorController {
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setString(1, name);
-            System.out.println(ps.toString());
             ps.executeUpdate();
             return true;
 
@@ -38,7 +37,6 @@ public class AuthorController {
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
-            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
 
             ArrayList<String> returnedAuthors = new ArrayList<String>();
@@ -70,7 +68,6 @@ public class AuthorController {
             }
 
         } catch (Exception ex) {
-            System.out.println("Ruined [All Author]");
             ex.printStackTrace();
         }
 
@@ -91,7 +88,6 @@ public class AuthorController {
             }
             return a;
         } catch (Exception ex) {
-            System.out.println("Ruined [Author by id]");
             ex.printStackTrace();
         }
 

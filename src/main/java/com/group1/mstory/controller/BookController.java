@@ -36,7 +36,6 @@ public class BookController {
                 bookTileList.add(bt);
             }
         } catch (Exception ex){
-            System.out.println("Ruined");
             ex.printStackTrace();
         }
 
@@ -55,7 +54,6 @@ public class BookController {
             ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
             return buildBookTiles(rs);
         } catch (Exception ex){
-            System.out.println("Ruined");
             ex.printStackTrace();
             return null;
         }
@@ -84,7 +82,6 @@ public class BookController {
             ResultSet rs = ps.executeQuery();
             return buildBookTiles(rs);
         } catch (Exception ex){
-            System.out.println("Ruined");
             ex.printStackTrace();
             return null;
         }
@@ -93,16 +90,14 @@ public class BookController {
     }
 
 
-    private Book getBook(String sql, int id){
+    private Book getBook(String sql, int id, boolean isProductId){
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
-            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             rs.next();
-            System.out.println(rs.toString());
 
-            return new Book(
+            Book book = new Book(
                     rs.getInt("booksid"),
                     rs.getInt("publisherid"),
                     rs.getString("isbn"),
@@ -114,7 +109,18 @@ public class BookController {
                     rs.getString("binding"),
                     (float) rs.getLong("weight"),
                     publisherController.getPublisherByBookId(rs.getInt("publisherid")),
-                    authorController.getAuthorsByBookId(rs.getInt("booksid")));
+                    authorController.getAuthorsByBookId(rs.getInt("booksid")),
+                    null);
+
+            if (isProductId){
+                book.setProduct(productController.getProductByProductId(id));
+            } else{
+                int bookProductId = getProductIdFromBookId(book.getBookId());
+                book.setProduct(productController.getProductByProductId(bookProductId));
+            }
+
+            return book;
+            
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -123,17 +129,33 @@ public class BookController {
     }
 
     public Book getBookByProductId(int id){
-        String sql = "SELECT Books.* FROM Books" + 
+        String sql = "SELECT * FROM Books " + 
         "INNER JOIN Book_Product ON Book_Product.BookId = Books.BooksId " +
-        "INNER JOIN Products ON Products.BookId = Book_Product.ProductId" + 
+        "INNER JOIN Products ON Products.BookId = Book_Product.ProductId " + 
         "WHERE Products.ProductId = ?;";
 
-        return getBook(sql, id);
+        return getBook(sql, id, true);
     }
 
     public Book getBookByBookId(int id){
         String sql = "SELECT * FROM Books WHERE BooksId = ?;";
-        return getBook(sql, id);
+        return getBook(sql, id, false);
+    }
+
+
+    public int getProductIdFromBookId(int bookId){
+        String sql = "SELECT * FROM Book_Product WHERE BookId = ?;";
+        try{
+            PreparedStatement ps  = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1,bookId);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("productid");
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return -1;
     }
 
 

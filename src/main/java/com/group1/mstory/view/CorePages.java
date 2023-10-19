@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.group1.mstory.controller.BookController;
 import com.group1.mstory.objects.Book;
+import com.group1.mstory.objects.Product;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.controller.AuthorController;
 import com.group1.mstory.controller.BasketController;
 import com.group1.mstory.controller.IllustratorController;
-
+import com.group1.mstory.controller.ProductController;
 import com.group1.mstory.model.BookTile;
 
 @Controller
@@ -47,7 +48,10 @@ public class CorePages {
     public String page(Model model,@RequestParam("id") String idParam){
         int id = Integer.parseInt(idParam);
         Book b = bookController.getBookByBookId(id);
+        // convert b.product.price to dollars from cents
+        float price = ((float) b.getProduct().getPrice()) / 100;
         model.addAttribute("book", b);
+        model.addAttribute("price", price);
         b.display();
         return "bookpage.html";
     }

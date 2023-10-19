@@ -60,27 +60,28 @@ header h1{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#shoppingCart{
-    width: 0;
+.cart{
+    position: fixed;
+    right: -30vw;
+    width: 30vw;
+    height: 100vh;
+
+
     align-self: flex-end;
     background-color: white;
     border-left: black 1px solid;
 
-    transition: width 0.5s ease-out;    
-}
-
-#shoppingCart.shown{
-    width: 30vw;
-    border-left: none;
-}
-
-
-.cart{
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    flex-grow: 1;
+
+    transition: right 0.5s ease-out;      
 }
+
+.cart.shown{
+    right: 0;
+}
+
 .cartTitle{
     text-align: center;
 }

@@ -18,7 +18,6 @@ public class IllustratorController {
         try{
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setString(1,name);
-            System.out.println(ps.toString());
             ps.executeUpdate();
             return true;
 

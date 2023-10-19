@@ -26,7 +26,9 @@ public class ShoppingCart {
         int id = Integer.parseInt(idParam);
 
         ArrayList<Book> cart = new ArrayList<Book>();
-        cart.add(bookController.getBookByBookId(id));
+
+        basketController.addProductByProductId(Integer.parseInt(idParam));
+        cart.add(bookController.getBookByProductId(id));
 
         model.addAttribute("shoppingCart", cart);
         return "shoppingCart/cartitem.html";
@@ -43,7 +45,7 @@ public class ShoppingCart {
 
     @RequestMapping(value = "/cart/removeBook", method = RequestMethod.GET)
     public String removeBook(@RequestParam("id") String idParam, Model model){
-
+        basketController.removeProductByProductId(Integer.parseInt(idParam));
         return "shoppingCart/blank.html";
     }
 }
