@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.group1.mstory.connectors.JdbcConnector;
 import com.group1.mstory.objects.Book;
-import com.mysql.cj.jdbc.JdbcConnection;
 
 @Component
 public class BasketController {

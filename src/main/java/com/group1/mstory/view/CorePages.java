@@ -59,7 +59,7 @@ public class CorePages {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchAllBooks(Model model, @RequestParam("search") String search){
-        ArrayList<BookTile> books = bc.getTilesSearch(search);
+        ArrayList<BookTile> books = bookController.getTilesSearch(search);
         model.addAttribute("books", books);
         return "allBooks.html";
     }
