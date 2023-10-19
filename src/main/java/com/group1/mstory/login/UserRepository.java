@@ -1,5 +1,7 @@
 package com.group1.mstory.login;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 
@@ -8,5 +10,5 @@ import org.springframework.data.repository.CrudRepository;
 // CRUD refers Create, Read, Update, Delete
 
 public interface UserRepository extends CrudRepository<Users, Integer> {
-    
+    Optional<Users> findByEmail(String email);
 }
