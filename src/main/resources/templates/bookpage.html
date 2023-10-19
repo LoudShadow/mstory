@@ -30,11 +30,12 @@
                     </ul>
                 </div>
                 <p class="bookDescription" th:text="${book.description}"></p>
-                <!-- <p class="bookPrice">$<span th:text="${book.price}"></span></p>
-                <p class="bookDescription" th:text="${book.description}"></p> -->
-                <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
+                <p class="bookPrice">$<span th:text="${price}"></span></p>
+
+                    <span class="bookIsbn" >isbn:<span th:text="${book.isbn}"></span></span>
                 <div class="buy">
-                    <p class="stockText instock">In Stock</p>
+                    <p class="stockText" th:if="${book.product.productCount eq 0}">Out of Stock</p>
+                    <p class="stockText instock" th:if="${book.product.productCount gt 0}">In Stock</p>
                     <button class="buyButton instock"
                         th:hx-get="@{/cart/addBook(id=${book.product.productId})}"
                         hx-trigger="click"
@@ -42,6 +43,7 @@
                         hx-target=".cartItems"
                         hx-on:click="toggleCart()"
                         hx-delay="1000"
+                        th:disabled="${book.product.productCount eq 0}"
                     >Buy</button>
                 </div>
             </div>

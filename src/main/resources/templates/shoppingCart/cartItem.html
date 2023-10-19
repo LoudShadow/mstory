@@ -5,7 +5,7 @@
         <p class="cartItemPrice">$<span>10.00</span></p>
     </div>
     <button class="cartRemove"
-        th:hx-get="@{/cart/removeBook(id=${book.bookId})}"
+        th:hx-get="@{/cart/removeBook(id=${book.product.productId})}"
         hx-trigger="click"
         hx-swap="outerHTML"
         hx-target="closest .cartItem"

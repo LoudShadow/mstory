@@ -48,7 +48,10 @@ public class CorePages {
     public String page(Model model,@RequestParam("id") String idParam){
         int id = Integer.parseInt(idParam);
         Book b = bookController.getBookByBookId(id);
+        // convert b.product.price to dollars from cents
+        float price = ((float) b.getProduct().getPrice()) / 100;
         model.addAttribute("book", b);
+        model.addAttribute("price", price);
         b.display();
         return "bookpage.html";
     }
