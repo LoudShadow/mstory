@@ -55,12 +55,12 @@ public class BasketController {
         return null;
     }
 
-    public void addProductByProductId(int productId){
+    public void addProductByProductId(int orderId, int productId){
         String sql = "INSERT INTO Orders_Products (orderid, productid, price) values (?,?,?);";
 
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1,1);
+            ps.setInt(1,orderId);
             ps.setInt(2, productId);
             ps.setInt(3, 100);
             ps.executeUpdate();
@@ -71,12 +71,12 @@ public class BasketController {
 
 
 
-    public void removeProductByProductId(int productId){
+    public void removeProductByProductId(int userBasketId, int productId){
         String sql = "DELETE FROM Orders_Products WHERE orderid = ? AND productid = ? LIMIT 1;";
 
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1,1);
+            ps.setInt(1,userBasketId);
             ps.setInt(2,productId);
             System.out.println(ps.toString());
             ps.executeUpdate();
