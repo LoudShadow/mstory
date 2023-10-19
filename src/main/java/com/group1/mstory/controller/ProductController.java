@@ -4,27 +4,31 @@ import java.sql.PreparedStatement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.group1.mstory.connectors.JdbcConnector;
 
 @Component
-public class IllustratorController {
-
+public class ProductController {
     @Autowired
     JdbcConnector jdbcConnector;
-    
 
-    public boolean addIllustrator(String name) {
-        String sql = "INSERT INTO Illustrators(name) VALUES (?);";
+
+    public int addProduct(int productType, int productCount, int bookId){
+        String sql = "INSERT INTO Products (producttype, productcount, bookid) VALUES (?,?,?)";
+
         try{
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setString(1,name);
-            System.out.println(ps.toString());
+            ps.setInt(1, productType);
+            ps.setInt(2, productCount);
+            ps.setInt(3, bookId);
             ps.executeUpdate();
-            return true;
-
-        }catch(Exception ex){
+            return jdbcConnector.getLastInsertId();
+        } catch (Exception ex){
             ex.printStackTrace();
-            return false;
         }
+
+        return -1;
+
     }
+    
 }

@@ -7,9 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Author {
-    private int authorId;
-    private String name;
+@AllArgsConstructor
+public class Product {
+    private int productId;
+    private int productType;
+    private int productCount;
+    private int bookId;
 }

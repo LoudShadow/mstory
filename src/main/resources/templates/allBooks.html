@@ -11,10 +11,6 @@
 
             <header th:insert="fragments/header.html"></header>
             
-            <div class="sidebar">
-                
-            </div>
-            
             <div class="main">
 
                 <a th:each="book : ${books}" class="bookTileLink" th:href="@{bookpage(id=${book.bookId})}">

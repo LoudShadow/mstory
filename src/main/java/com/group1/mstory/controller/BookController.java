@@ -3,38 +3,38 @@ package com.group1.mstory.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.group1.mstory.model.BookTile;
 import com.group1.mstory.objects.Book;
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import com.group1.mstory.connectors.JdbcConnector;
 
 
 @Component
 public class BookController {
+    @Autowired
+    JdbcConnector jdbcConnector;
 
+    @Autowired
+    AuthorController authorController;
 
-    public static ArrayList<BookTile> getAllBookTiles(){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+    @Autowired
+    PublisherController publisherController;
 
-        String sql = "SELECT Books.*, GROUP_CONCAT(Authors.Name) AS Authors FROM Books \r\n" + //
-                "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId \r\n" + //
-                "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId\r\n" + //
-                "GROUP BY Books.BooksId;";
+    @Autowired
+    ProductController productController;
 
+    public ArrayList<BookTile> buildBookTiles(ResultSet rs){
         ArrayList<BookTile> bookTileList = new ArrayList<BookTile>();
 
         try{
-            ResultSet rs = jdbcConnector.prepareAndExecuteStatement(sql);
-
             while (rs.next()){
                 BookTile bt = new BookTile(rs);
                 bookTileList.add(bt);
             }
-
-            
         } catch (Exception ex){
             System.out.println("Ruined");
             ex.printStackTrace();
@@ -43,9 +43,12 @@ public class BookController {
         return bookTileList;
     }
 
+    public ArrayList<BookTile> getAllBookTiles(){
 
-    private static Book getBook(String sql, int id){
-        JdbcConnector jdbcConnector = new JdbcConnector("jdbc:mysql://192.168.1.106:3310/MStorey","root","password");
+        String sql = "SELECT Books.*, GROUP_CONCAT(Authors.Name) AS Authors FROM Books \r\n" + //
+                "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId \r\n" + //
+                "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId\r\n" + //
+                "GROUP BY Books.BooksId;";
 
 
         try{
@@ -96,6 +99,7 @@ public class BookController {
             ps.setInt(1, id);
             System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
+            rs.next();
             System.out.println(rs.toString());
 
             return new Book(
@@ -109,8 +113,8 @@ public class BookController {
                     rs.getInt("pagecount"),
                     rs.getString("binding"),
                     (float) rs.getLong("weight"),
-                    pc.getPublisherByBookId(rs.getInt("publisherid")),
-                    ac.getAuthorsByBookId(rs.getInt("booksid")));
+                    publisherController.getPublisherByBookId(rs.getInt("publisherid")),
+                    authorController.getAuthorsByBookId(rs.getInt("booksid")));
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -118,7 +122,7 @@ public class BookController {
         return null;
     }
 
-    public static Book getBookByProductId(int id){
+    public Book getBookByProductId(int id){
         String sql = "SELECT Books.* FROM Books" + 
         "INNER JOIN Book_Product ON Book_Product.BookId = Books.BooksId " +
         "INNER JOIN Products ON Products.BookId = Book_Product.ProductId" + 
@@ -127,9 +131,79 @@ public class BookController {
         return getBook(sql, id);
     }
 
-    public static Book getBookByBookId(int id){
+    public Book getBookByBookId(int id){
         String sql = "SELECT * FROM Books WHERE BooksId = ?;";
         return getBook(sql, id);
+    }
+
+
+    public int addBook(
+        String title,
+        List<String> authorIds,
+        String description,
+        int publisherId,
+        int price,
+        String isbn,
+        String publicationDate,
+        String imageUrl,
+        String binding,
+        int pageCount,
+        double weight){
+
+        String sql;
+
+        // SQL to add a new book to Books Table
+        sql = "INSERT INTO Books (publisherid, isbn, title, publishdate, imageurl, pagecount, binding, weight, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1, publisherId);
+            ps.setString(2, isbn);
+            ps.setString(3, title);
+            ps.setString(4, publicationDate);
+            ps.setString(5, imageUrl);
+            ps.setInt(6, pageCount);
+            ps.setString(7, binding);
+            ps.setDouble(8, weight);
+            ps.setString(9, description);
+            ps.executeUpdate();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        // Getting id of added book
+        int bookId = jdbcConnector.getLastInsertId();
+        
+        // SQL To add link Authors <-> Book
+        try{
+            System.out.println("BookId: " + bookId);
+
+            for (String authorId : authorIds){
+                sql = "INSERT INTO Author_Book (authorid, bookid) VALUES (?,?)";
+                PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+                ps.setInt(1, Integer.parseInt(authorId));
+                ps.setInt(2, bookId);
+                ps.executeUpdate();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        // SQL To add new product
+        int productId = productController.addProduct(1,1,bookId);
+
+        // SQL to link Product <-> Book
+        try {
+            sql = "INSERT INTO Book_Product (bookid,productid) VALUES (?,?)";
+            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+            ps.setInt(1, bookId);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return bookId;
+
     }
 
 

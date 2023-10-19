@@ -7,9 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Author {
-    private int authorId;
-    private String name;
+@AllArgsConstructor
+public class Order {
+    private int orderId;
+    private int userid;
+    private boolean baskerOrder;
 }

@@ -46,7 +46,7 @@ html body{
     font-size: x-large;
 }
 
-.addingform input{
+.addingform  input , .addingform select{
     width: 20vw;
     height: 2vw;
     border-radius: 5px;
@@ -62,4 +62,7 @@ html body{
     background-color: green;
     color: white;
     font-size: x-large;
+}
+#authorMany{
+    height: 20vh;
 }

@@ -31,12 +31,6 @@ html body{
     background-color: whitesmoke;
 }
 
-.sidebar{
-    grid-column: 1/2;
-    grid-row: 2/3;
-    background-color: green;
-    width: 20vw;
-}
 
 .bookTile{
     background-color: #fff;

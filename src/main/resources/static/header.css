@@ -1,6 +1,4 @@
 header{
-    grid-column: 1/3;
-    grid-row: 1/2;
     background-color: lightcoral;
 
     display: flex;
@@ -18,6 +16,9 @@ header h1{
 
 .search{
     justify-self: flex-end;
+
+    display: flex;
+    flex-direction: row;
 }
 
 .searchBar{

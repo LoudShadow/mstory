@@ -1,10 +1,6 @@
 package com.group1.mstory.objects;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import com.group1.mstory.controller.AuthorController;
-import com.group1.mstory.controller.PublisherController;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,26 +24,6 @@ public class Book {
     private float weight;
     private String publisher;
     private ArrayList<String> authors;
-
-    public Book(ResultSet rs){
-        try{
-            rs.next();
-            this.bookId = rs.getInt("booksid");
-            this.publisherId = rs.getInt("publisherid");
-            this.isbn = rs.getString("isbn");
-            this.title = rs.getString("title");
-            this.publishDate = rs.getString("publishdate");
-            this.imageUrl = rs.getString("imageurl");
-            this.pageCount = rs.getInt("pagecount");
-            this.binding = rs.getString("binding");
-            this.weight = (float) rs.getLong("weight");
-            this.publisher = PublisherController.getPublisherByBookId(rs.getInt("publisherid"));
-            this.authors = AuthorController.getAuthorsByBookId(rs.getInt("booksid"));
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
-
 
     public void display(){
         System.out.println(bookId);
