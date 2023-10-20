@@ -22,19 +22,18 @@ public class FlanController {
             .header("Content-Type", "application/json; charset=UTF-8")
             .POST(HttpRequest.BodyPublishers.ofString(inputString))
             .build();
-        System.out.println(request.method());
         try{
             CompletableFuture<HttpResponse<String>> futureResponse = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
             HttpResponse<String> httpResponse = futureResponse.get();
             response = httpResponse.body();
-            System.out.println(response);
+            response = response.substring(18,response.length()-7);
+
             return response;
         } catch (Exception ex) {
             ex.getStackTrace();
         }
         
-        return "";
-
+        return "Sorry, I was unable to connect to my processing. Please try again later.";
         
     }
 }
