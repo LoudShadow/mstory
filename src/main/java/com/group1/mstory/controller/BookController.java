@@ -59,7 +59,7 @@ public class BookController {
         }
     }
 
-    public ArrayList<BookTile> getTilesSearch(String searchTerm){0
+    public ArrayList<BookTile> getTilesSearch(String searchTerm){
         String sql = 
         "SELECT * FROM (SELECT Books.* , " +
         "    GROUP_CONCAT(Authors.Name) AS Authors," +

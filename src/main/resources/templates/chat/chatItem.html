@@ -1,0 +1,5 @@
+<div class="chatMessages">
+    <div th:attr="class=${message.senderId eq 0 ? 'chatMessage isBot' : 'chatMessage isUser'}" th:each="message : ${messages}">
+        <div class="chatMessageContent" th:text="${message.message}"></div>
+    </div>
+</div>

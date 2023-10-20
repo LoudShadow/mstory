@@ -1,0 +1,26 @@
+<div class="chatWrapper">
+    <link rel="stylesheet" href="chat.css">
+    <div class="chatHeader">
+        <h2>Chat</h2>
+    </div>
+    <div class="chatBody">
+        <div class="chatMessages">
+            <div th:attr="class=${message.senderId eq 0 ? 'chatMessage isBot' : 'chatMessage isUser'}" th:each="message : ${messages}">
+                <div class="chatMessageContent" th:text="${message.message}"></div>
+            </div>
+        </div>
+        <div class="chatInput">
+            <form class="chatForm">
+                <input type="text" name="message" placeholder="Message" />
+                <button type="submit"
+                    hx-trigger="click"
+                    hx-get="/chat"
+                    hx-swap="beforeend"
+                    hx-target=".chatMessages"
+                    hx-include="[name='message']"
+                    hx-on:click="document.querySelector('[name=\'message\']').value = ''"
+                >Send</button>
+            </form>
+        </div>
+    </div>
+</div>
