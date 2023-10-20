@@ -70,14 +70,6 @@ public class CorePages {
         model.addAttribute("books", books);
         return "allBooks.html";
     }
-
-
-    @RequestMapping(value = "/testFlan", method = RequestMethod.GET)
-    public String testFlan(Model model, @RequestParam("input") String inputString){
-        String response = flanController.sendPostRequest(inputString);
-        System.out.println(response);
-        return "allBooks.html";
-    }
     
 
 
