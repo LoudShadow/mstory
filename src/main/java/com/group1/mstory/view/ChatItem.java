@@ -25,7 +25,7 @@ public class ChatItem {
     public String chat(@RequestParam("message") String message, Model model){
         ArrayList<Message> messages = new ArrayList<Message>();
         messages.add(new Message(1, message));
-        messages.add(new Message(0, "I am sorry I do not understand"));
+        messages.add(new Message(0, "I'm Sorry Dave, I'm Afraid I Can't Do That"));
         model.addAttribute("messages", messages);
         return "chat/chatItem.html";
     }

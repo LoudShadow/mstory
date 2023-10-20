@@ -9,12 +9,32 @@
   display: flex;
   flex-direction: column;
   width: 30em;
+  max-height: 60vh;
+  overflow: hidden;
+
+    transition: width 0.5s, max-height 0.5s;
+}
+.chatWrapper.closed{
+    width: 0;
+    max-height: 0;
 }
 
 .chatHeader {
   background-color: lightcoral;
   color: #fff;
   padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.chatHeader h2{
+    flex: 1;
+}
+.chatHeader button{
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: xx-large;
 }
 
 .chatBody {
@@ -30,6 +50,9 @@
 
   display: flex;
   flex-direction: column;
+  max-height: 40vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .chatMessage {
@@ -89,4 +112,29 @@
 .isUser {
   background-color: #f5f5f5;
   align-self: flex-start;
+}
+
+.openChat{
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    background-color: lightcoral;
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: width 0.5s, height 0.5s, transform 0.5s;
+}
+.openChat.closed{
+    width: 0;
+    height: 0;
+    transform: rotate(180deg);
+}
+
+.openChat>svg{
+    width: 75%;
+    height: 75%;
 }
