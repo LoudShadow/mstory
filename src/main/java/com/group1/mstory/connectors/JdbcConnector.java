@@ -6,23 +6,34 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
+@PropertySource("classpath:application.properties")
 public class JdbcConnector {
-    private String connectionUrl = "jdbc:mysql://192.168.1.106:3310/MStorey";
-    private String connectionUser = "root";
-    private String connectionPassword = "password";
+    @Autowired
+    Environment env;
+
     private Connection connection = null;
     private PreparedStatement ps = null;
 
     public JdbcConnector()
     {
-        beginConnection();
+        // beginConnection();
     }
 
-
-    public Boolean beginConnection(){
+    @Bean
+    public Boolean beginConnection(){   
+        System.out.println("Connecting to database..."); 
+        String connectionUrl = env.getProperty("spring.datasource.url");
+        String connectionUser = env.getProperty("spring.datasource.username");
+        String connectionPassword = env.getProperty("spring.datasource.password");  
+        System.out.println(connectionUrl);
         try {
             this.connection = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
             return true;
@@ -63,13 +74,13 @@ public class JdbcConnector {
         return id;
     }
 
-    public void setConnectionUrl(String newUlr){
-        this.connectionUrl = newUlr;
-    }
+    // public void setConnectionUrl(String newUlr){
+    //     this.connectionUrl = newUlr;
+    // }
 
-    public String getConnectionUrl(){
-        return this.connectionUrl;
-    }
+    // public String getConnectionUrl(){
+    //     return this.connectionUrl;
+    // }
 
     public int getLastInsertId(){
         String sql = "SELECT LAST_INSERT_ID() AS id";

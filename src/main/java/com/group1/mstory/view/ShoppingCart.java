@@ -41,7 +41,7 @@ public class ShoppingCart {
         cart.add(bookController.getBookByProductId(id));
 
         model.addAttribute("shoppingCart", cart);
-        return "shoppingCart/cartitem.html";
+        return "shoppingCart/cartItem.html";
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
@@ -50,7 +50,7 @@ public class ShoppingCart {
         ArrayList<Book> cart = basketController.getBasketProductsFromOrderId(userBasketId);
 
         model.addAttribute("shoppingCart", cart);
-        return "shoppingCart/cartitem.html";
+        return "shoppingCart/cartItem.html";
     }
 
     @RequestMapping(value = "/cart/removeBook", method = RequestMethod.GET)
