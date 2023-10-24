@@ -74,6 +74,10 @@ public class JdbcConnector {
         return id;
     }
 
+    public Connection getConnection(){
+        return this.connection;
+    }
+
     // public void setConnectionUrl(String newUlr){
     //     this.connectionUrl = newUlr;
     // }
