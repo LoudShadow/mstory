@@ -1,6 +1,7 @@
 package com.group1.mstory.view;
 
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,12 @@ public class ShoppingCart {
     public String removeBook(@RequestParam("id") String idParam, Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
         int userBasketId = userController.getUserBasketId(userDetails.getId());
         basketController.removeProductByProductId(userBasketId,Integer.parseInt(idParam));
+        return "shoppingCart/blank.html";
+    }
+
+    @RequestMapping(value = "cart/checkout", method = RequestMethod.GET)
+    public String checkout(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException {
+        basketController.basketCheckout(userDetails.getId());
         return "shoppingCart/blank.html";
     }
 }
