@@ -1,0 +1,17 @@
+.checkoutItems{
+    margin-left: 30vw;
+    margin-right: 30vw;
+}
+
+.checkoutItems>div{
+    border-left: black 1px solid;
+    border-right: black 1px solid;
+}
+
+.greenbg{
+    background-color: green;
+    width: 100%;
+    font-size: x-large;
+    padding: 10px;
+    cursor: pointer;
+}

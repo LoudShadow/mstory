@@ -9,8 +9,14 @@ header{
 
     height: fit-content;
     border-bottom: black 2px solid;
+
 }
-header h1{
+
+.headerLink{
+    text-decoration: none;
+    color: black;
+    font-size: x-large;
+    padding: 0 10px;
     flex-grow: 1;
 }
 

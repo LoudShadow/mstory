@@ -59,4 +59,13 @@ public class ShoppingCart {
         basketController.removeProductByProductId(userBasketId,Integer.parseInt(idParam));
         return "shoppingCart/blank.html";
     }
+
+    @RequestMapping(value = "/checkout/page", method = RequestMethod.GET)
+    public String checkout(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        int userBasketId = userController.getUserBasketId(userDetails.getId());
+        ArrayList<Book> books = basketController.getBasketProductsFromOrderId(userBasketId);
+        System.out.println("Checkout: " + books.size());
+        model.addAttribute("shoppingCart", books);
+        return "shoppingCart/CheckoutCart.html";
+    }
 }
