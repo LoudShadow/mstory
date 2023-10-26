@@ -77,18 +77,33 @@ public class UserController {
   public int addNewUser(String email, String password){
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10);
 
-    String sql = "INSERT INTO users (email, password) VALUES(?, ?);";
+    String sql = "INSERT INTO users (email, pass, role) VALUES(?, ?, ?);";
 
     try {
       PreparedStatement ps = jdbcConnector.prepareStatement(sql);
       ps.setString(1, email);
       ps.setString(2,bCryptPasswordEncoder.encode(password));
+      ps.setString(3,"USER");
       ps.executeUpdate();
       return jdbcConnector.getLastInsertId();
     } catch (Exception ex){
       ex.printStackTrace();
       return -1;
     }
+  }
+
+  public boolean updateBasketId(int userId, int basketId){
+    String sql = "UPDATE users SET basketId = ? WHERE id = ?;";
+    try {
+      PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+      ps.setInt(1, basketId);
+      ps.setInt(2, userId);
+      ps.executeUpdate();
+      return true;
+    } catch (Exception ex){
+      ex.printStackTrace();
+    }
+    return false;
   }
 
 }
