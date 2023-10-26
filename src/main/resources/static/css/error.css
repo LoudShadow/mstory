@@ -1,0 +1,49 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: lightcoral;
+}
+
+h1 {
+    color: whitesmoke;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+p {
+    color: #333;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    border: white;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+li span {
+    font-weight: bold;
+}
