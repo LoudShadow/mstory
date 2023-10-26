@@ -1,48 +1,64 @@
 <script>
-    function hideBoth(){
+    function hideBoth() {
         var cartWrapper = document.getElementById("cartWrapper");
         var cart = document.getElementById("shoppingCart");
         var user = document.getElementById("userTile");
         cartWrapper.classList.remove("shown");
         cart.classList.remove("shown");
         user.classList.remove("shown");
-        setTimeout(function(){cartWrapper.style.display = "none";}, 500);
+        setTimeout(function () { cartWrapper.style.display = "none"; }, 500);
     }
 
-    function toggleCart(){
+    function toggleCart() {
         var cartWrapper = document.getElementById("cartWrapper");
         var cart = document.getElementById("shoppingCart");
-        if(cartWrapper.style.display == "none"){
+        if (cartWrapper.style.display == "none") {
             cartWrapper.style.display = "flex";
-            setTimeout(function(){
+            setTimeout(function () {
                 cartWrapper.classList.add("shown");
                 cart.classList.add("shown");
-        }, 50);
-        }else{
+            }, 50);
+        } else {
             cartWrapper.classList.remove("shown");
             cart.classList.remove("shown");
-            setTimeout(function(){cartWrapper.style.display = "none";}, 500);
+            setTimeout(function () { cartWrapper.style.display = "none"; }, 500);
         }
     }
 
-    function toggleUser(){
+    function toggleHistory() {
+        var cartWrapper = document.getElementById("cartWrapper");
+        var history = document.getElementById("orderHistory");
+        if (cartWrapper.style.display == "none") {
+            cartWrapper.style.display = "flex";
+            setTimeout(function () {
+                cartWrapper.classList.add("shown");
+                history.classList.add("shown");
+            }, 50);
+        } else {
+            cartWrapper.classList.remove("shown");
+            history.classList.remove("shown");
+            setTimeout(function () { cartWrapper.style.display = "none"; }, 500);
+        }
+    }
+
+    function toggleUser() {
         var cartWrapper = document.getElementById("cartWrapper");
         var user = document.getElementById("userTile");
-        if(cartWrapper.style.display == "none"){
+        if (cartWrapper.style.display == "none") {
             cartWrapper.style.display = "flex";
-            setTimeout(function(){
+            setTimeout(function () {
                 cartWrapper.classList.add("shown");
                 user.classList.add("shown");
             }, 50);
-        }else{
+        } else {
             cartWrapper.classList.remove("shown");
             console.log(user.classList);
             user.classList.remove("shown");
-            setTimeout(function(){cartWrapper.style.display = "none";}, 500);
+            setTimeout(function () { cartWrapper.style.display = "none"; }, 500);
         }
     }
 
-    function preventFallthrough(e){
+    function preventFallthrough(e) {
         e.stopPropagation();
         console.log('e');
     }
@@ -50,28 +66,40 @@
 
 </script>
 
-<a href="/" class="headerLink"><h1>M Story</h1></a>
+<a href="/" class="headerLink">
+    <h1>M Story</h1>
+</a>
 
 <div class="search">
     <form action="/search" method="get" class="searchForm">
 
-    <input class="searchBar" type="text" placeholder="Search" name="search">
-    <button class="searchButton" type="submit">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-          </svg>
-    </button>
+        <input class="searchBar" type="text" placeholder="Search" name="search">
+        <button class="searchButton" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+        </button>
     </form>
     <button class="searchButton" onclick="toggleCart()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
-            <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
-          </svg>
+            <path
+                d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z" />
+        </svg>
+    </button>
+    <button class="searchButton" onclick="toggleHistory()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+                d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+        </svg>
     </button>
     <button class="searchButton" onclick="toggleUser()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-          </svg>
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+            <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+        </svg>
     </button>
 </div>
 
@@ -80,13 +108,18 @@
 <div class="cartWrapper" id="cartWrapper" style="display: none;">
     <div class="cart" id="shoppingCart">
         <h2 class="cartTitle">Shopping Cart</h2>
-        <div class="cartItems" 
-                hx-trigger="load"
-                hx-get="/cart?id=1"
-                hx-swap="beforeend">
-            
+        <div class="cartItems" hx-trigger="load" hx-get="/cart?id=1" hx-swap="beforeend">
+
             <div class="endLine"></div>
-            
+
+        </div>
+        <button hx-trigger="click" hx-get="/cart/checkout" class="checkoutButton">Checkout</button>
+    </div>
+    <div class="cart" id="orderHistory">
+        <h2 class="cartTitle">Order History</h2>
+        <div class="cartItems" hx-trigger="load" hx-get="/orderHistory" hx-swap="beforeend">
+            <div class="endLine"></div>
+
         </div>
         <a href="/checkoutPage">
         <button class="checkoutButton">Checkout</button>
@@ -97,10 +130,10 @@
             <h1> Authenticated as <span sec:authentication="name"></span></h1>
             <button class="checkoutButton" th:onclick="'window.location.href=\'/logout\''">Logout</button>
         </div>
-</div>
-<script>
+    </div>
+    <script>
         //add click listener the cart
-    document.getElementById("shoppingCart").addEventListener("click", preventFallthrough);
-    //add click listener to the cart wrapper
-    document.getElementById("cartWrapper").addEventListener("click", hideBoth);
-</script>
+        document.getElementById("shoppingCart").addEventListener("click", preventFallthrough);
+        //add click listener to the cart wrapper
+        document.getElementById("cartWrapper").addEventListener("click", hideBoth);
+    </script>

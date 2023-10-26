@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel='stylesheet' href='orderHistory.css'>
+    <div th:replace = 'fragments/head.html'></div>
+    <title>Order History</title>
+</head>
+<body >
+    <div class="content">
+        <header th:insert="fragments/header.html"></header>
+
+        <div class="main mainHistory">
+            <div class="order" th:each="order : ${orderHistory}">
+                <h1 th:text="|£${order.totalprice}|"></h1>
+                <div class="booksHistory">
+
+                    <div class="bookTile" th:each="book : ${order.books}">
+                        <div>
+                            <h3 class="bookTitle" th:text="${book.title}">Book Title</h3>
+                            <img class="bookImg" th:attr="src=${book.imageUrl}" alt="book cover">
+                            <p class="bookIsbn" th:text="${book.isbn}"></p>
+                            <p class="bookPrice" th:text="|£${book.price}|"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

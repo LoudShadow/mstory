@@ -1,0 +1,26 @@
+.mainHistory{
+    display: flex ;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+.order{
+    
+}
+.order>h1{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1rem 0;
+
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.booksHistory{
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
