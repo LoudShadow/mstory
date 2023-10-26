@@ -19,6 +19,8 @@ import com.group1.mstory.controller.UserController;
 import com.group1.mstory.login.UserDetailsImpl;
 import com.group1.mstory.objects.Book;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class ShoppingCart {
     @Autowired
@@ -61,7 +63,7 @@ public class ShoppingCart {
         return "shoppingCart/blank.html";
     }
 
-    @RequestMapping(value = "/checkout/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkoutPage", method = RequestMethod.GET)
     public String checkoutPage(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
         int userBasketId = userController.getUserBasketId(userDetails.getId());
         ArrayList<Book> books = basketController.getBasketProductsFromOrderId(userBasketId);
@@ -71,8 +73,9 @@ public class ShoppingCart {
     }
 
     @RequestMapping(value = "cart/checkout", method = RequestMethod.GET)
-    public String checkout(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException {
+    public String checkout(Model model,HttpServletResponse response,@AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException {
         basketController.basketCheckout(userDetails.getId());
+        response.addHeader("HX-Redirect", "/");
         return "shoppingCart/blank.html";
     }
 }

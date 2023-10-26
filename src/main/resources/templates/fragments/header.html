@@ -88,10 +88,9 @@
             <div class="endLine"></div>
             
         </div>
-        <button 
-        hx-trigger="click"
-        hx-get="/cart/checkout" 
-        class="checkoutButton">Checkout</button>
+        <a href="/checkoutPage">
+        <button class="checkoutButton">Checkout</button>
+        </a>
     </div>
     <div class="cart" id="userTile">
         <div sec:authorize="isAuthenticated()">
