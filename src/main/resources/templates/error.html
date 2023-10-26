@@ -2,14 +2,24 @@
 <!-- book store -->
 <html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/error.css">
         <div th:replace = 'fragments/head.html'></div>
     </head>
     
 
 
     <body>
-        <h1> This is the error page</h1>
-        <p>Sorry for the inconvenience. Click <a th:href="@{/}">here</a> to go back to the home page.</p>
+        <!-- <h1> MStory</h1> -->
+        <h1> We are so sorry. An error has occured!</h1>
+        <p>Sorry for the inconvenience. Click <a th:href="@{/}">this link</a> to go back to the home page.</p>
+        <br>
+        
+        <p> Couple stats regarding the error:</p>
+        <ul>
+            <li>Status:<span th:text="${status}"></span></li>
+            <li>Timestamp: <span th:text="${timestamp}">Timestamp</span></li>
+            <li>Path: <span th:text="${path}">Path</span></li>
+            <li>Error: <span th:text="${error}">Error</span></li>
+        </ul>
     </body>
 </html>

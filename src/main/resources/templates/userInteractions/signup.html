@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <head>
+
+            <link rel="stylesheet" href="css/adding.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Roboto&display=swap" rel="stylesheet">
+            <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+
+        </head>
+    </head>
+    <body>
+        <div class="content" >
+            <div class="navigation">
+                <div class="navigationElement"
+                    id="userNav"
+                    ><a href="/login">Login</a></div>
+                <div class="navigationElement selected"
+                    id="signupNav"
+                    hx-target=".page"
+                    hx-trigger="click"
+                    > Sign Up </div>
+            </div>
+            <div class="page" id="signupNavForm">
+                <form class="addingform" action="/signup" method="post">
+                    <label for="signup">Email</label>
+                    <input type="text" id="signupEmail" name="signupEmail" placeholder="Email">
+            
+                    <label for="signup">Confirm email</label>
+                    <input type="text" id="signupEmailConfirm" name="signupEmailConfirm" placeholder="Confirm email">
+            
+                    <label for="signup">Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Password">
+            
+                    <label for="signup">Confirm password</label>
+                    <input type="password" id="signupPasswordConfirm" name="signupPasswordConfirm" placeholder="Confirm password">
+                    <button type="submit" class="addButton">Signup</button>
+
+                    <div th:if="${errors != null}" th:each="error : ${errors}">
+                        <div class="error">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                              </svg>
+                            <span th:text="${error}">Error</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <span th:if="${result != null && result=='emailsDoNotMatch'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='passwordsDoNotMatch'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='emailExists'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='signupError'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='basketError'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='linkError'}" th:text="${result}"></span>
+        </div>
+    </body>
+</html>
