@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <head>
+            <style>
+                html body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.hidden{
+    display:none
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding-top: 3vh;
+}
+
+.navigation{
+    border-bottom: black 1px solid;
+    display: flex;
+    flex-direction: row;
+}
+
+.navigationElement{
+    padding: 1vw 2vw;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    border: black 1px solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.navigationElement.selected{
+    background-color: green;
+    color: white;
+}
+
+.addingform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: black 1px solid;
+    border-radius: 10px;
+
+    padding: 3vw;
+    gap: 10px;
+    font-size: x-large;
+}
+
+.addingform  input , .addingform select{
+    width: 20vw;
+    height: 2vw;
+    border-radius: 5px;
+    border: black 1px solid;
+    padding: 0 1vw;
+}
+
+.addButton{
+    width: 10vw;
+    border-radius: 5px;
+    border: black 1px solid;
+    padding: 1vw;
+    background-color: green;
+    color: white;
+    font-size: x-large;
+}
+#authorMany{
+    height: 20vh;
+}
+            </style>
+        
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Roboto&display=swap" rel="stylesheet">
+            <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+
+        </head>
+        <script>
+            function swapSelected(targetid){
+                var navElements = document.getElementsByClassName("navigationElement");
+                for (var i = 0; i < navElements.length; i++) {
+                    navElements[i].classList.remove("selected");
+                }
+                document.getElementById(targetid).classList.add("selected");
+
+                var pageElements = document.getElementsByClassName("page");
+                for (var i = 0; i < pageElements.length; i++) {
+                    pageElements[i].classList.add("hidden");
+                }
+                document.getElementById(targetid+"Form").classList.remove("hidden");
+                
+            }
+        </script>
+    </head>
+    <body>
+        <div class="content" >
+
+            <div class="navigation">
+                <div class="navigationElement selected"
+                    id="userNav"
+                    hx-target=".page"
+                    hx-trigger="click"
+                    hx-on:click="swapSelected('userNav')"
+                    > Login </div>
+                <div class="navigationElement"
+                    id="signupNav"
+                    hx-target=".page"
+                    hx-trigger="click"
+                    hx-on:click="swapSelected('signupNav')"
+                    > Sign Up </div>
+            </div>
+            <div class="page" id="userNavForm">
+                <form class="addingform" action="/login" method="post">
+                    <label for="author">Email</label>
+                    <input name="username" type="text" id="login" placeholder="Email">
+            
+                    <label for="author">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Password">
+                    <button type="submit" class="addButton">Login</button>
+                </form>
+            </div>
+            <div class="page hidden" id="signupNavForm">
+                <form class="addingform" action="/user/signup" method="post">
+                    <label for="signup">Email</label>
+                    <input type="text" id="signupEmail" name="signupEmail" placeholder="Email">
+            
+                    <label for="signup">Confirm email</label>
+                    <input type="text" id="signupEmailConfirm" name="signupEmailConfirm" placeholder="Confirm email">
+            
+                    <label for="signup">Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Password">
+            
+                    <label for="signup">Confirm password</label>
+                    <input type="password" id="signupPasswordConfirm" name="signupPasswordConfirm" placeholder="Confirm password">
+                    <button type="submit" class="addButton">Signup</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
