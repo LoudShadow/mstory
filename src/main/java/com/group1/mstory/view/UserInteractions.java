@@ -1,5 +1,7 @@
 package com.group1.mstory.view;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -47,43 +49,39 @@ public class UserInteractions {
         System.out.println(password);
         System.out.println(confirmedPassword);
 
-        if (!email.equals(confirmedEmail)){
-            model.addAttribute("result", "emailsDoNotMatch");
-            return "userInteractions/signup.html";
-        }
+        ArrayList<String> errors = new ArrayList<String>();
+        model.addAttribute("errors", errors);
 
-        if (!password.equals(confirmedPassword)){
-            model.addAttribute("result", "passwordsDoNotMatch");
-            return "userInteractions/signup.html";
-        }
 
+        if (!email.equals(confirmedEmail)){errors.add("Emails do not match");}
+        if (!password.equals(confirmedPassword)){errors.add("Passwords do not match");}
+        if (errors.size() > 0){return "userInteractions/signup.html";}
+        
         if (userController.checkEmailExists(email)){
-            model.addAttribute("result", "emailExists");
+            errors.add("Email already exists");
             return "userInteractions/signup.html";
         }
 
         // Adding new user
         int newUserId = userController.addNewUser(email,password);
         if (newUserId == -1){
-            model.addAttribute("result", "signupError");
+            errors.add("Error adding new user");
             return "userInteractions/signup.html";
         }
 
         // Adding new basket order
         int basketId = orderController.createBasket_returnBasketId(newUserId);
         if (basketId == -1){
-            model.addAttribute("result", "basketError");
+            errors.add("Error adding new basket");
             return "userInteractions/signup.html";
         }
 
         // Adding link to user <-> basket
         boolean linkBasketUserSuccess = userController.updateBasketId(newUserId, basketId);
         if (linkBasketUserSuccess == false){
-            model.addAttribute("result", "linkError");
+            errors.add("Error linking basket to user");
             return "userInteractions/signup.html";
         }
-
-        model.addAttribute("result", "signupOkay");
         return "userInteractions/login.html";
     }
 }
