@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <head>
+
+            <link rel="stylesheet" href="css/adding.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Roboto&display=swap" rel="stylesheet">
+            <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+
+        </head>
+    </head>
+    <body>
+        <div class="content" >
+            <div class="navigation">
+                <div class="navigationElement"
+                    id="userNav"
+                    ><a href="/login">Login</a></div>
+            </div>
+            <div class="navigation">
+                <div class="navigationElement selected"
+                    id="signupNav"
+                    hx-target=".page"
+                    hx-trigger="click"
+                    > Sign Up </div>
+            </div>
+            <div class="page" id="signupNavForm">
+                <form class="addingform" action="/signup" method="post">
+                    <label for="signup">Email</label>
+                    <input type="text" id="signupEmail" name="signupEmail" placeholder="Email">
+            
+                    <label for="signup">Confirm email</label>
+                    <input type="text" id="signupEmailConfirm" name="signupEmailConfirm" placeholder="Confirm email">
+            
+                    <label for="signup">Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Password">
+            
+                    <label for="signup">Confirm password</label>
+                    <input type="password" id="signupPasswordConfirm" name="signupPasswordConfirm" placeholder="Confirm password">
+                    <button type="submit" class="addButton">Signup</button>
+                </form>
+            </div>
+
+            <span th:if="${result != null && result=='emailsDoNotMatch'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='passwordsDoNotMatch'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='emailExists'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='signupError'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='basketError'}" th:text="${result}"></span>
+            <span th:if="${result != null && result=='linkError'}" th:text="${result}"></span>
+        </div>
+    </body>
+</html>

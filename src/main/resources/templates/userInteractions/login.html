@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <head>
+            <link rel="stylesheet" href="css/adding.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Roboto&display=swap" rel="stylesheet">
+            <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+
+        </head>
+        <script>
+            function swapSelected(targetid){
+                var navElements = document.getElementsByClassName("navigationElement");
+                for (var i = 0; i < navElements.length; i++) {
+                    navElements[i].classList.remove("selected");
+                }
+                document.getElementById(targetid).classList.add("selected");
+
+                var pageElements = document.getElementsByClassName("page");
+                for (var i = 0; i < pageElements.length; i++) {
+                    pageElements[i].classList.add("hidden");
+                }
+                document.getElementById(targetid+"Form").classList.remove("hidden");
+                
+            }
+        </script>
+    </head>
+    <body>
+        <div class="content" >
+
+            <div class="navigation">
+                <div class="navigationElement selected"
+                    id="userNav"
+                    hx-target=".page"
+                    hx-trigger="click"
+                    hx-on:click="swapSelected('userNav')"
+                    > Login </div>
+            </div>
+            <div class="navigation">
+                <div class="navigationElement"
+                    id="userNav"
+                    ><a href="/signup">Signup</a></div>
+            </div>
+            <div class="page" id="userNavForm">
+                <form class="addingform" th:action="@{/login}" method="post">
+                    <label for="author">Email</label>
+                    <input name="username" type="text" id="login" placeholder="Email">
+            
+                    <label for="author">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Password">
+                    <button type="submit" class="addButton">Login</button>
+                </form>
+            </div>
+            </br></br>
+            
+            <div th:if="${param.error}">
+                <span th:text="${error?.summary}">Static summary</span>
+            </div>
+
+            <div th:if="${result != null && result == 'signupOkay'}" th:text="${result}">Static summary</div>
+
+        </div>
+    </body>
+</html>
