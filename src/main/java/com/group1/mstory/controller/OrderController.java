@@ -49,4 +49,8 @@ public class OrderController {
         return -1;
     }
 
+    public int createOrder(int userId){
+        String sql = "INSERT INTO Order () VALUES (?,?,?);";
+    }
+
 }

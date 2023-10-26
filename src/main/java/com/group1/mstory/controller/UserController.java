@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,40 @@ public class UserController {
       ex.printStackTrace();
     }
     return -1;
+  }
+
+  public boolean checkEmailExists(String email){
+    String sql = "SELECT * FROM users WHERE email = ?;";
+
+    try {
+      PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+      ps.setString(1,email);
+      ResultSet rs = ps.executeQuery();
+      if (rs.next()){
+        return true;
+      } 
+      return false;
+    } catch (Exception ex){
+      ex.printStackTrace();
+    }
+    return true;
+  }
+
+  public int addNewUser(String email, String password){
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10);
+
+    String sql = "INSERT INTO users (email, password) VALUES(?, ?);";
+
+    try {
+      PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+      ps.setString(1, email);
+      ps.setString(2,bCryptPasswordEncoder.encode(password));
+      ps.executeUpdate();
+      return jdbcConnector.getLastInsertId();
+    } catch (Exception ex){
+      ex.printStackTrace();
+      return -1;
+    }
   }
 
 }
