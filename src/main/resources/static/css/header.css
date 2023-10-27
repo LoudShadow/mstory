@@ -1,3 +1,8 @@
+html , body{
+    margin: 0;
+    padding: 0;
+}
+
 header{
     background-color: lightcoral;
 
@@ -140,4 +145,9 @@ header{
 .checkoutButton:hover{
     background-color: rgb(150, 150, 150);
     cursor: pointer;
+}
+.searchButton>svg{
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
 }
