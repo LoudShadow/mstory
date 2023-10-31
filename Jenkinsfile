@@ -9,7 +9,7 @@ pipeline {
         stages {
           stage('Checkout') {
                   steps {
-                        git branch: 'main', url: 'https://github.com/PaulMercer1/lbg-hello-world-maven.git'
+                        git branch: 'main', url: "https://github.com/LoudShadow/mstory.git"
                   }
           }
           stage('Compile') {
