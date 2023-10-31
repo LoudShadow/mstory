@@ -1,6 +1,6 @@
 package com.group1.mstory.objects;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class Book {
     private String binding;
     private float weight;
     private String publisher;
-    private ArrayList<String> authors;
+    private List<String> authors;
     private Product product;
 
     public void display(){

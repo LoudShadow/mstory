@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +27,11 @@ public class BasketController {
     @Autowired
     BookController bookController;
 
-    public ArrayList<Book> getBasketProductsFromOrderId(int orderId){
-        ArrayList<Book> booksInBasket = new ArrayList<Book>();
+    Logger logger = LogManager.getLogger(JdbcConnector.class);
+
+
+    public List<Book> getBasketProductsFromOrderId(int orderId) throws SQLException{
+        ArrayList<Book> booksInBasket = new ArrayList<>();
 
         String sql = "SELECT * FROM Books " + 
         "INNER JOIN Book_Product ON Book_Product.BookId = Books.BooksId " + 
@@ -34,58 +40,41 @@ public class BasketController {
         "INNER JOIN Orders ON Orders.OrderId = Orders_Products.OrderId " + 
         "WHERE Orders.OrderId = ? and Orders.isBasket = 1";
 
-        try {
-            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1, orderId);
-            ResultSet rs = ps.executeQuery();
-        
-            ArrayList<Integer> bookIds = new ArrayList<Integer>();
+        PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+        ps.setInt(1, orderId);
+        ResultSet rs = ps.executeQuery();
+    
+        ArrayList<Integer> bookIds = new ArrayList<>();
 
-            while (rs.next()){
-                bookIds.add(rs.getInt("bookid"));
-            }
-
-            for (int bookId : bookIds){
-                booksInBasket.add(bookController.getBookByBookId(bookId));
-            }
-
-            return booksInBasket;
-
-        } catch (Exception ex) {
-            // ex.printStackTrace();
+        while (rs.next()){
+            bookIds.add(rs.getInt("bookid"));
         }
-        
-        return null;
+
+        for (int bookId : bookIds){
+            booksInBasket.add(bookController.getBookByBookId(bookId));
+        }
+
+        return booksInBasket;
     }
 
-    public void addProductByProductId(int orderId, int productId){
+    public void addProductByProductId(int orderId, int productId) throws SQLException{
         String sql = "INSERT INTO Orders_Products (orderid, productid, price) values (?,?,?);";
-
-        try {
-            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1,orderId);
-            ps.setInt(2, productId);
-            ps.setInt(3, 100);
-            ps.executeUpdate();
-        } catch (Exception ex) {
-            // ex.printStackTrace();
-        }
+        PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+        ps.setInt(1,orderId);
+        ps.setInt(2, productId);
+        ps.setInt(3, 100);
+        ps.executeUpdate();
     }
 
 
 
-    public void removeProductByProductId(int userBasketId, int productId){
+    public void removeProductByProductId(int userBasketId, int productId) throws SQLException{
         String sql = "DELETE FROM Orders_Products WHERE orderid = ? AND productid = ? LIMIT 1;";
 
-        try {
-            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1,userBasketId);
-            ps.setInt(2,productId);
-            System.out.println(ps.toString());
-            ps.executeUpdate();
-        } catch (Exception ex){
-            // ex.printStackTrace();
-        }
+        PreparedStatement ps = jdbcConnector.prepareStatement(sql);
+        ps.setInt(1,userBasketId);
+        ps.setInt(2,productId);
+        ps.executeUpdate();
     }
 
     public HashMap<Integer, Integer> getProductsInBasket(int userId)
@@ -97,16 +86,12 @@ public class BasketController {
 
         HashMap<Integer, Integer> basket = new HashMap<>();
 
-        try (PreparedStatement getBasket = jdbcConnector.prepareStatement(sql)) {
-            getBasket.setInt(1, userId);
-            ResultSet rs = getBasket.executeQuery();
-            while (rs.next()) {
-                basket.put(rs.getInt("ProductId"), rs.getInt("ProductCount"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        PreparedStatement getBasket = jdbcConnector.prepareStatement(sql);
+        getBasket.setInt(1, userId);
+        ResultSet rs = getBasket.executeQuery();
+        while (rs.next()) {
+            basket.put(rs.getInt("ProductId"), rs.getInt("ProductCount"));
         }
-
         return basket;
     }
 
@@ -115,7 +100,6 @@ public class BasketController {
                 "SET p.ProductCount = p.ProductCount - ? " + 
                 "WHERE p.ProductId = ?; ";
         String basketSql = "UPDATE Orders o SET o.isBasket = 0 WHERE o.UserId = ?";
-        System.out.println(userId);
         String newBasketSql = "INSERT INTO Orders (UserId, isBasket) VALUES (?, 1)";
         String assignBasketSql = "UPDATE users SET basketId = (SELECT OrderId FROM Orders ORDER BY OrderId DESC LIMIT 1) WHERE users.id = ?";
         Connection con = jdbcConnector.getConnection();
@@ -150,10 +134,10 @@ public class BasketController {
             // Commit transaction
             con.commit();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             if (con != null) {
                 try {
-                    System.err.print("Transaction is being rolled back");
+                    logger.info("Transaction is being rolled back");
                     con.rollback();
                 } catch (SQLException excep) {
                     System.out.println(excep.getMessage());

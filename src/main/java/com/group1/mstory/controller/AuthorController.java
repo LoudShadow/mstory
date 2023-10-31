@@ -3,6 +3,7 @@ package com.group1.mstory.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,23 +24,21 @@ public class AuthorController {
             return true;
 
         } catch (Exception ex) {
-            // ex.printStackTrace();
             return false;
         }
     }
 
-    public ArrayList<String> getAuthorsByBookId(int id){
+    public List<String> getAuthorsByBookId(int id){
         String sql = "SELECT Authors.Name AS Authors FROM Books \r\n" + //
                 "INNER JOIN Author_Book ON Author_Book.BookId = Books.BooksId \r\n" + //
                 "INNER JOIN Authors ON Authors.AuthorId = Author_Book.AuthorId\r\n" + //
                 "where Books.BooksId =?;";
-
         try {
             PreparedStatement ps = jdbcConnector.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            ArrayList<String> returnedAuthors = new ArrayList<String>();
+            ArrayList<String> returnedAuthors = new ArrayList<>();
 
             while (rs.next()) {
                 returnedAuthors.add(rs.getString("authors"));
@@ -47,15 +46,14 @@ public class AuthorController {
             return returnedAuthors;
 
         } catch (Exception ex) {
-            // ex.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 
-    public ArrayList<Author> getAllAuthors() {
+    public List<Author> getAllAuthors() {
         String sql = "SELECT * FROM Authors;";
 
-        ArrayList<Author> authorsList = new ArrayList<Author>();
+        ArrayList<Author> authorsList = new ArrayList<>();
 
         try {
             ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
@@ -66,12 +64,12 @@ public class AuthorController {
                 a.setName(rs.getString("Name"));
                 authorsList.add(a);
             }
+            return authorsList;
 
         } catch (Exception ex) {
-            // ex.printStackTrace();
-        }
-
-        return authorsList;
+            return authorsList;
+        } 
+        
     }
 
     public Author getAuthorById(int id) {
@@ -88,9 +86,8 @@ public class AuthorController {
             }
             return a;
         } catch (Exception ex) {
-            // ex.printStackTrace();
+            return null;
         }
 
-        return null;
     }
 }

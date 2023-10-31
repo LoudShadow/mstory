@@ -48,14 +48,6 @@ public class JdbcConnector {
         return ps.executeQuery();
     }
 
-    // This must have the id column named as "id"
-    public int prepareExecuteReturnId(String query) throws SQLException{
-        ps = connection.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt("id");
-    }
-
     public void prepareAndExecuteUpdate(String query) throws SQLException {
         ps = connection.prepareStatement(query);
         ps.executeUpdate();
