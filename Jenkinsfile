@@ -18,6 +18,7 @@ pipeline {
                 }
                 steps {
                         sh 'echo ${CREDS} > src/main/resources/db.properties'
+                        sh 'cat src/main/resources/db.properties'
                 }
           }
           stage('Compile') {
