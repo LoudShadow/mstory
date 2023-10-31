@@ -35,10 +35,9 @@ public class FlanController {
 
             return response;
         } catch (Exception ex) {
-            ex.getStackTrace();
+            return "Sorry, I was unable to connect to my processing. Please try again later.";
         }
         
-        return "Sorry, I was unable to connect to my processing. Please try again later.";
         
     }
 }
