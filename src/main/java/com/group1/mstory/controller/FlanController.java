@@ -6,16 +6,23 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+
+import com.group1.mstory.connectors.JdbcConnector;
 
 @Configuration
 @PropertySource("classpath:db.properties")
 public class FlanController {
     @Autowired
     Environment env;
+
+    Logger logger = LogManager.getLogger(JdbcConnector.class);
+    String ERROR_MESSAGE = "Sorry, I was unable to connect to my processing. Please try again later.";
 
     public String sendPostRequest(String requestString){
         String response = "";
@@ -34,10 +41,12 @@ public class FlanController {
             response = response.substring(18,response.length()-7);
 
             return response;
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            logger.error("Thread interrupted", ex);
+            return ERROR_MESSAGE;
         } catch (Exception ex) {
-            return "Sorry, I was unable to connect to my processing. Please try again later.";
+            return ERROR_MESSAGE;
         }
-        
-        
     }
 }

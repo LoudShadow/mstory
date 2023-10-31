@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,7 +78,7 @@ public class BasketController {
         ps.executeUpdate();
     }
 
-    public HashMap<Integer, Integer> getProductsInBasket(int userId)
+    public Map<Integer, Integer> getProductsInBasket(int userId)
             throws SQLException {
         String sql = "SELECT op.ProductId, COUNT(op.ProductId) ProductCount FROM Orders o " +
                 "JOIN Orders_Products op ON o.OrderId = op.OrderId " +
@@ -104,13 +105,13 @@ public class BasketController {
         String assignBasketSql = "UPDATE users SET basketId = (SELECT OrderId FROM Orders ORDER BY OrderId DESC LIMIT 1) WHERE users.id = ?";
         Connection con = jdbcConnector.getConnection();
 
-        HashMap<Integer, Integer> basket = getProductsInBasket(userId);
+        Map<Integer, Integer> basket = getProductsInBasket(userId);
         try (PreparedStatement updateStock = con.prepareStatement(stockSql);
                 PreparedStatement updateBasket = con.prepareStatement(basketSql);
                 PreparedStatement newBasket = con.prepareStatement(newBasketSql);
                 PreparedStatement assignBasket = con.prepareStatement(assignBasketSql)) {
             con.setAutoCommit(false);
-            for (HashMap.Entry<Integer, Integer> entry : basket.entrySet()) {
+            for (Map.Entry<Integer, Integer> entry : basket.entrySet()) {
                 // Update stock
                 int prodId = entry.getKey();
                 int count = entry.getValue();
@@ -135,13 +136,11 @@ public class BasketController {
             con.commit();
         } catch (SQLException e) {
             logger.error(e.getMessage());
-            if (con != null) {
-                try {
-                    logger.info("Transaction is being rolled back");
-                    con.rollback();
-                } catch (SQLException excep) {
-                    System.out.println(excep.getMessage());
-                }
+            try {
+                logger.info("Transaction is being rolled back");
+                con.rollback();
+            } catch (SQLException excep) {
+                logger.error(excep.getMessage());
             }
         }
     }
