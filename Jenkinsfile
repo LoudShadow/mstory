@@ -14,7 +14,7 @@ pipeline {
           }
           stage('add secret'){
                 environment{
-                        CREDS = credentials('db-properties')
+                        CREDS = credentials('db.properties2')
                 }
                 steps {
                         sh 'echo ${CREDS} > src/main/resources/db.properties'
