@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 @Configuration
 @PropertySource("classpath:db.properties")
@@ -38,7 +37,6 @@ public class JdbcConnector {
             this.connection = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
             return true;
         } catch (Exception E){
-            E.printStackTrace();
             return false;
         }
     }
@@ -93,7 +91,7 @@ public class JdbcConnector {
             rs.next();
             return rs.getInt("id");
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
         return -1;
 

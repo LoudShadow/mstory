@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.group1.mstory.controller.BookController;
 import com.group1.mstory.controller.FlanController;
 import com.group1.mstory.objects.Book;
-import com.group1.mstory.objects.Product;
 import com.group1.mstory.controller.PublisherController;
 import com.group1.mstory.controller.AuthorController;
 import com.group1.mstory.controller.BasketController;
 import com.group1.mstory.controller.IllustratorController;
-import com.group1.mstory.controller.ProductController;
 import com.group1.mstory.model.BookTile;
 
 @Controller

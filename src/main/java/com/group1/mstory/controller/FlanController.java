@@ -6,11 +6,16 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
-@Component
+@Configuration
+@PropertySource("classpath:db.properties")
 public class FlanController {
-
+    @Autowired
+    Environment env;
 
     public String sendPostRequest(String requestString){
         String response = "";
@@ -18,7 +23,7 @@ public class FlanController {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:5000/postRequest"))
+            .uri(URI.create(env.getProperty("spring.datasource.flanEndpoint")))
             .header("Content-Type", "application/json; charset=UTF-8")
             .POST(HttpRequest.BodyPublishers.ofString(inputString))
             .build();

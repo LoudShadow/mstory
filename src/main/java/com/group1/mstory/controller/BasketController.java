@@ -1,7 +1,6 @@
 package com.group1.mstory.controller;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,7 +52,7 @@ public class BasketController {
             return booksInBasket;
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
         
         return null;
@@ -69,7 +68,7 @@ public class BasketController {
             ps.setInt(3, 100);
             ps.executeUpdate();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
     }
 
@@ -85,7 +84,7 @@ public class BasketController {
             System.out.println(ps.toString());
             ps.executeUpdate();
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
     }
 

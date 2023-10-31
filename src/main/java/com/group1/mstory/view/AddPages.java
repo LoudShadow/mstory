@@ -1,6 +1,5 @@
 package com.group1.mstory.view;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class AddPages {
         @RequestParam("weight") String weight){
         bookController.addBook(
             title,
-            Arrays.asList(authorId.split("\\s*,\\s*")),
+            Arrays.asList(authorId.split(",")),
             description,
             Integer.parseInt(publisherId),
             Integer.parseInt(price),

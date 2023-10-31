@@ -52,7 +52,7 @@ public class UserController {
       rs.next();
       return rs.getInt("basketid");
     } catch (Exception ex) {
-      ex.printStackTrace();
+      // ex.printStackTrace();
     }
     return -1;
   }
@@ -69,7 +69,7 @@ public class UserController {
       } 
       return false;
     } catch (Exception ex){
-      ex.printStackTrace();
+      // ex.printStackTrace();
     }
     return true;
   }
@@ -87,7 +87,7 @@ public class UserController {
       ps.executeUpdate();
       return jdbcConnector.getLastInsertId();
     } catch (Exception ex){
-      ex.printStackTrace();
+      // ex.printStackTrace();
       return -1;
     }
   }
@@ -101,7 +101,7 @@ public class UserController {
       ps.executeUpdate();
       return true;
     } catch (Exception ex){
-      ex.printStackTrace();
+      // ex.printStackTrace();
     }
     return false;
   }

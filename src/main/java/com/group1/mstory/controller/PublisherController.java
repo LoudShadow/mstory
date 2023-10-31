@@ -28,7 +28,7 @@ public class PublisherController {
             return true;
 
         }catch(Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return false;
         }
 
@@ -45,7 +45,7 @@ public class PublisherController {
             rs.next();
             return rs.getString("name");
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
         return null;
     }
@@ -64,7 +64,7 @@ public class PublisherController {
                 publishersList.add(p);
             }
         }catch(Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
         return publishersList;
     }

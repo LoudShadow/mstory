@@ -23,7 +23,7 @@ public class AuthorController {
             return true;
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return false;
         }
     }
@@ -47,7 +47,7 @@ public class AuthorController {
             return returnedAuthors;
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return null;
         }
     }
@@ -68,7 +68,7 @@ public class AuthorController {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return authorsList;
@@ -88,7 +88,7 @@ public class AuthorController {
             }
             return a;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return null;

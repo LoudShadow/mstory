@@ -36,7 +36,7 @@ public class BookController {
                 bookTileList.add(bt);
             }
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return bookTileList;
@@ -54,7 +54,7 @@ public class BookController {
             ResultSet rs = jdbcConnector.prepareAndExecuteQuery(sql);
             return buildBookTiles(rs);
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return null;
         }
     }
@@ -82,7 +82,7 @@ public class BookController {
             ResultSet rs = ps.executeQuery();
             return buildBookTiles(rs);
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return null;
         }
 
@@ -122,7 +122,7 @@ public class BookController {
             return book;
             
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return null;
@@ -152,7 +152,7 @@ public class BookController {
             rs.next();
             return rs.getInt("productid");
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return -1;
@@ -189,7 +189,7 @@ public class BookController {
             ps.setString(9, description);
             ps.executeUpdate();
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         // Getting id of added book
@@ -207,7 +207,7 @@ public class BookController {
                 ps.executeUpdate();
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         // SQL To add new product
@@ -221,7 +221,7 @@ public class BookController {
             ps.setInt(2, productId);
             ps.executeUpdate();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return bookId;

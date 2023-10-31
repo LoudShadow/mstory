@@ -26,7 +26,7 @@ public class ProductController {
             ps.executeUpdate();
             return jdbcConnector.getLastInsertId();
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return -1;
@@ -50,7 +50,7 @@ public class ProductController {
 
             return product;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return null;

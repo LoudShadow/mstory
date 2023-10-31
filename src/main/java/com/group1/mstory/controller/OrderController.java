@@ -3,7 +3,6 @@ package com.group1.mstory.controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ import com.group1.mstory.connectors.JdbcConnector;
 import com.group1.mstory.model.OrderSummary;
 import com.group1.mstory.objects.Order;
 import com.group1.mstory.objects.OrderedBook;
-import com.mysql.cj.xdevapi.PreparableStatement;
 
 @Component
 public class OrderController {
@@ -48,7 +46,7 @@ public class OrderController {
             rs.next();
             return rs.getInt("orderid");
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
         return -1;
@@ -65,7 +63,7 @@ public class OrderController {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
         return orders;
     }
@@ -101,7 +99,7 @@ public class OrderController {
                 books
             );
         } catch (Exception ex) {
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return new OrderSummary();
         }
     }
@@ -121,7 +119,7 @@ public class OrderController {
             ps.executeUpdate();
             return jdbcConnector.getLastInsertId();
         } catch (Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
         return -1;
     }

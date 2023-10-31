@@ -39,7 +39,7 @@ public class BookTile {
             this.shotDesc = this.shortDesc();
             this.setAuthors( new ArrayList<String>(Arrays.asList(rs.getString("authors").split(","))));
         } catch (SQLException ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
         }
 
     }

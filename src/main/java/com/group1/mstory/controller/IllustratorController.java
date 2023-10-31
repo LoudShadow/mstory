@@ -22,7 +22,7 @@ public class IllustratorController {
             return true;
 
         }catch(Exception ex){
-            ex.printStackTrace();
+            // ex.printStackTrace();
             return false;
         }
     }
