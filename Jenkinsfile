@@ -12,6 +12,14 @@ pipeline {
                         git branch: 'main', url: "https://github.com/LoudShadow/mstory.git"
                   }
           }
+          stage('add secret'){
+                environment{
+                        CREDS = credentials('db-properties')
+                }
+                steps {
+                        sh 'echo ${CREDS} > src/main/resources/db.properties'
+                }
+          }
           stage('Compile') {
               steps {
                  // Run Maven on a Unix agent.
