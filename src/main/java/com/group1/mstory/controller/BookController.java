@@ -2,6 +2,7 @@ package com.group1.mstory.controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,7 +160,7 @@ public class BookController {
     }
 
 
-    public int addBook(
+    public int addBook (
         String title,
         List<String> authorIds,
         String description,
@@ -170,59 +171,48 @@ public class BookController {
         String imageUrl,
         String binding,
         int pageCount,
-        double weight){
+        double weight)throws SQLException{
 
         String sql;
 
         // SQL to add a new book to Books Table
         sql = "INSERT INTO Books (publisherid, isbn, title, publishdate, imageurl, pagecount, binding, weight, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        try {
-            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1, publisherId);
-            ps.setString(2, isbn);
-            ps.setString(3, title);
-            ps.setString(4, publicationDate);
-            ps.setString(5, imageUrl);
-            ps.setInt(6, pageCount);
-            ps.setString(7, binding);
-            ps.setDouble(8, weight);
-            ps.setString(9, description);
-            ps.executeUpdate();
-        } catch (Exception ex){
-            // ex.printStackTrace();
-        }
+        
+        PreparedStatement addBooksPS = jdbcConnector.prepareStatement(sql);
+        addBooksPS.setInt(1, publisherId);
+        addBooksPS.setString(2, isbn);
+        addBooksPS.setString(3, title);
+        addBooksPS.setString(4, publicationDate);
+        addBooksPS.setString(5, imageUrl);
+        addBooksPS.setInt(6, pageCount);
+        addBooksPS.setString(7, binding);
+        addBooksPS.setDouble(8, weight);
+        addBooksPS.setString(9, description);
+        addBooksPS.executeUpdate();
 
         // Getting id of added book
         int bookId = jdbcConnector.getLastInsertId();
         
         // SQL To add link Authors <-> Book
-        try{
-            System.out.println("BookId: " + bookId);
 
-            for (String authorId : authorIds){
-                sql = "INSERT INTO Author_Book (authorid, bookid) VALUES (?,?)";
-                PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-                ps.setInt(1, Integer.parseInt(authorId));
-                ps.setInt(2, bookId);
-                ps.executeUpdate();
-            }
-        } catch (Exception ex) {
-            // ex.printStackTrace();
+        for (String authorId : authorIds){
+            sql = "INSERT INTO Author_Book (authorid, bookid) VALUES (?,?)";
+            PreparedStatement addAuthorBookPs = jdbcConnector.prepareStatement(sql);
+            addAuthorBookPs.setInt(1, Integer.parseInt(authorId));
+            addAuthorBookPs.setInt(2, bookId);
+            addAuthorBookPs.executeUpdate();
         }
 
         // SQL To add new product
         int productId = productController.addProduct(1,1,bookId);
 
         // SQL to link Product <-> Book
-        try {
-            sql = "INSERT INTO Book_Product (bookid,productid) VALUES (?,?)";
-            PreparedStatement ps = jdbcConnector.prepareStatement(sql);
-            ps.setInt(1, bookId);
-            ps.setInt(2, productId);
-            ps.executeUpdate();
-        } catch (Exception ex) {
-            // ex.printStackTrace();
-        }
+        sql = "INSERT INTO Book_Product (bookid,productid) VALUES (?,?)";
+        PreparedStatement addBookProduct = jdbcConnector.prepareStatement(sql);
+        addBookProduct.setInt(1, bookId);
+        addBookProduct.setInt(2, productId);
+        addBookProduct.executeUpdate();
+
 
         return bookId;
 

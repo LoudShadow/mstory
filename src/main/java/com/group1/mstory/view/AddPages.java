@@ -1,5 +1,6 @@
 package com.group1.mstory.view;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class AddPages {
         @RequestParam("imageURL") String imageUrl,
         @RequestParam("binding") String binding,
         @RequestParam("pageCount") String pageCount,
-        @RequestParam("weight") String weight){
+        @RequestParam("weight") String weight) throws SQLException{
         bookController.addBook(
             title,
             Arrays.asList(authorId.split(",")),
