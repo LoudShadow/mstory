@@ -1,6 +1,7 @@
 package com.group1.mstory.view;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,14 +41,14 @@ public class CorePages {
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String index(Model model){
-        ArrayList<BookTile> books = bookController.getAllBookTiles();
+        List<BookTile> books = bookController.getAllBookTiles();
         model.addAttribute("books", books);
 
         return "allBooks.html";
     }
 
     @RequestMapping(value = "/bookpage",method = RequestMethod.GET)
-    public String page(Model model,@RequestParam("id") String idParam){
+    public String page(Model model,@RequestParam("id") String idParam) throws SQLException{
         int id = Integer.parseInt(idParam);
         Book b = bookController.getBookByBookId(id);
         // convert b.product.price to dollars from cents
@@ -64,7 +65,7 @@ public class CorePages {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchAllBooks(Model model, @RequestParam("search") String search){
-        ArrayList<BookTile> books = bookController.getTilesSearch(search);
+        List<BookTile> books = bookController.getTilesSearch(search);
         model.addAttribute("books", books);
         return "allBooks.html";
     }
