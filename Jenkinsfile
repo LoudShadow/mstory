@@ -2,7 +2,7 @@ pipeline {
         agent any
          environment {
                  registry = "loudshadow/mstory"
-                registryCredentials = "loudshadow"
+                registryCredentials = "dockerhub_id"
                 dockerImage = ""
             }
 
@@ -60,7 +60,25 @@ pipeline {
                     }
                 }
             }
+        
+            stage ("Push to Docker Hub"){
+                steps {
+                    script {
+                        docker.withRegistry('', registryCredentials) {
+                            dockerImage.push("${env.BUILD_NUMBER}")
+                            dockerImage.push("latest")
+                        }
+                    }
+                }
+            }
 
+            stage ("Clean up"){
+                steps {
+                    script {
+                        sh 'docker image prune --all --force --filter "until=48h"'
+                           }
+                }
+            }
 
                 
         }
