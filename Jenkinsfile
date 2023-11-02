@@ -1,5 +1,10 @@
 pipeline {
         agent any
+         environment {
+                 registry = "loudshadow/mstory"
+                registryCredentials = "loudshadow"
+                dockerImage = ""
+            }
 
         tools {
             // Install the Maven version configured as "M3" and add it to the path.
@@ -48,5 +53,15 @@ pipeline {
                     sh "mvn package"
                 }
             }
+           stage ('Build Docker Image'){
+                steps{
+                    script {
+                        dockerImage = docker.build(registry)
+                    }
+                }
+            }
+
+
+                
         }
 }
